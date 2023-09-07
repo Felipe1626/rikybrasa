@@ -19,9 +19,9 @@
         <!--IMG-->
         <button (click)="OpenImg(i)" id="productImg" class="row-span-2 w-full">
           <fa-icon [icon]="faHandPointer" *ngIf="!isOpen(i)" class="text-white border border-orange-900/40 rounded-full w-6 bg-orange-900/10 absolute top-2 right-3"></fa-icon>
-          <fa-icon [icon]="faClose" *ngIf="isOpen(i)" class="text-white border border-orange-900/40 rounded-full w-6 bg-orange-900/10 absolute bottom-2 right-3"></fa-icon>
-          <img src="#" *ngIf="!isOpen(i)" class="h-full w-full mx-auto rounded-md rounded-l-none" alt="" srcset="">
-          <img src="#" *ngIf="isOpen(i)" class="h-[98%] w-[99%] absolute rounded top-1 left-[0.15rem]" alt="" srcset="">
+          <fa-icon [icon]="faClose" *ngIf="isOpen(i)" class="text-white border z-10 border-orange-900/40 rounded-full w-6 bg-orange-900/10 absolute bottom-2 right-3"></fa-icon>
+          <img src="#" *ngIf="!isOpen(i)" class="h-full w-full mx-auto rounded-md rounded-l-none" alt="Foto de {{ product.name }}" src="../../../../../../../assets/default_img.png">
+          <img src="#" *ngIf="isOpen(i)" class="h-[98%] w-[99%] absolute rounded-md top-1 left-[0.15rem]" alt="" src="../../../../../../../assets/defaultBig_img.png">
         </button>
         <div class="col-span-3 py-2">
           <!--Order -->
