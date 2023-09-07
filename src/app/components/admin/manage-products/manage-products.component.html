@@ -1,34 +1,78 @@
 <div>
-    <div *ngFor="let product of products" class="w-full p-2 h-auto rounded bg-zinc-950/20 mb-2">
-        <div class="bg-orange-300 border border-orange-600 relative hover:last:opacity-100 h-full rounded p-3">
-            <div class="flex border-b border-orange-400 mb-2 p-1 capitalize hover:bg-orange-400/50">
-                <p class="w-[17ch]">Nombre</p>
-                <p>{{ product.name }}</p>
-            </div>
-            <div class="flex border-b border-orange-400 mb-2 p-1 capitalize hover:bg-orange-400/50">
-                <p class="w-[17ch]">Descripcion</p>
-                <p>{{ product.description }}</p>
-            </div>
-            <div class="flex border-b border-orange-400 mb-2 p-1 capitalize hover:bg-orange-400/50">
-                <p class="w-[17ch]">Price</p>
-                <p>{{ product.price }}</p>
-            </div>
-            <div class="flex border-b border-orange-400 mb-2 p-1 capitalize hover:bg-orange-400/50">
-                <p class="w-[17ch]">imagen</p>
-                <p>here goes the image</p>
-            </div>
-            <div class="flex border-b border-orange-400 mb-2 p-1 capitalize hover:bg-orange-400/50">
-                <p class="w-[17ch]">Categoria</p>
-                <p>{{ product.Category }}</p>
-            </div>
-            <div class="flex mb-2 p-1 capitalize hover:bg-orange-400/50">
-                <p class="w-[17ch]">Esta Disponible</p>
-                <p>{{ product.avalaible }}</p>
-            </div>
-            <div class="flex w-20 h-10 justify-between absolute bottom-0 right-0 p-2 opacity-10 hover:opacity-100">
-                <button class="hover:border w-8 hover:bg-orange-400/50 hover:border-orange-500 rounded-full"><fa-icon [icon]="faPancil"></fa-icon> </button>
-                <button class="hover:border w-8 hover:bg-orange-400/50 hover:border-orange-500 rounded-full"><fa-icon [icon]="faTrash"></fa-icon></button>
-            </div>
-        </div>
-    </div>
+	<h1 class="uppercase text-2xl font-bold w-full bg-orange-500 mb-2 p-2 rounded text-center text-white">edita o elimina tus productos aqui</h1>
+	<button (click)="ngOnInit()"><fa-icon [icon]="faRepeat"></fa-icon></button>
+	<div *ngFor="let product of products; let i = index; let isEditing" class="w-full p-2 h-auto rounded bg-zinc-950/20 mb-2">
+			<div class="bg-orange-300 hover:bg-orange-400 hover:text-white border flex border-orange-600 relative hover:last:opacity-100 h-full rounded p-3">
+					<div class="w-3/6">
+						<div class="flex border-b border-orange-200 mb-2 p-1 capitalize">
+							<p class="">Nombre</p>
+						</div>
+						<div class="flex border-b border-orange-200 mb-2 p-1 capitalize">
+							<p class="">Descripcion</p>
+						</div>
+						<div class="flex border-b border-orange-200 mb-2 p-1 capitalize">
+							<p class="">Price</p>
+						</div>
+						<div class="flex border-b border-orange-200 mb-2 p-1 capitalize">
+							<p class="">imagen</p>
+						</div>
+						<div class="flex border-b border-orange-200 mb-2 p-1 capitalize">
+							<p class="">Categoria</p>
+						</div>
+						<div class="flex mb-2 p-1 capitalize">
+							<p class="">Disponible</p>
+						</div>
+					</div>
+					<div  *ngIf="isEditing">
+						<div class="flex border-b border-orange-200 mb-2 p-1 capitalize">
+							<p>{{ product.name }}</p>
+						</div>
+						<div class="flex border-b border-orange-200 mb-2 p-1 capitalize">
+							<p>{{ product.description }}</p>
+						</div>
+						<div class="flex border-b border-orange-200 mb-2 p-1 capitalize">
+							<p>{{ product.price }}</p>
+						</div>
+						<div class="flex border-b border-orange-200 mb-2 p-1 capitalize">
+							<p>here goes the image</p>
+						</div>
+						<div class="flex border-b border-orange-200 mb-2 p-1 capitalize">
+							<p>{{ product.Category }}</p>
+						</div>
+						<div class="flex mb-2 p-1 capitalize">
+							<p *ngIf="product.avalaible === true">SI</p>
+							<p *ngIf="product.avalaible === false">NO</p>
+						</div>
+						<div class="flex w-20 h-10 justify-between absolute bottom-0 right-0 p-2 opacity-10 hover:opacity-100">
+							<button class="hover:border w-8 hover:bg-orange-600/50 hover:border-orange-500 rounded-full" (click)="isEditing"><fa-icon [icon]="faPancil"></fa-icon> </button>
+							<button class="hover:border w-8 hover:bg-orange-600/50 hover:border-orange-500 rounded-full" (click)="deleteProduct(this.product.name)"><fa-icon [icon]="faTrash"></fa-icon></button>
+						</div>
+					</div>
+					<form *ngIf="!isEditing">
+						<div class="flex border-b border-orange-200 mb-2 p-1 hover:bg-orange-600/50">
+							<input class="w-11/12 rounded capitalize px-1 h-6" placeholder="{{ product.name }}" type="text" name="" id="">
+						</div>
+						<div class="flex border-b border-orange-200 mb-2 p-1 hover:bg-orange-600/50">
+							<input class="w-11/12 rounded capitalize px-1 h-6" placeholder="{{ product.description }}" type="text" name="" id="">
+						</div>
+						<div class="flex border-b border-orange-200 mb-2 p-1 hover:bg-orange-600/50">
+							<input class="w-11/12 rounded px-1 h-6" placeholder="{{ product.price }}" type="number" name="" id="">
+						</div>
+						<div class="flex border-b border-orange-200 mb-2 p-1 hover:bg-orange-600/50">
+							<input class="w-11/12 rounded px-1 h-6" type="file" name="" id="">
+						</div>
+						<div class="flex h-8 border-b border-orange-200 mb-2 p-1 hover:bg-orange-600/50">
+							<input class="w-11/12 rounded px-1" placeholder="{{ product.Category }}" type="hidden" name="">
+						</div>
+						<div class="flex h-8 mb-2 p-1 hover:bg-orange-600/50">
+							<input class="w-6" type="radio" name="" id="">
+							<input class="w-6" type="radio" name="" id="">
+						</div>
+						<div class="flex w-full h-9 px-1 justify-between">
+							<button class="w-[12ch] p-1 rounded text-sm border border-orange-900 uppercase text-white bg-orange-800/40" (click)="!isEditing">Cancelar</button>
+							<button class="w-[12ch] p-1 rounded text-sm border border-orange-900 uppercase text-white bg-orange-800/40" >Actualizar</button>
+						</div>
+					</form>
+			</div>
+	</div>
 </div>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPencil, faRepeat, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Product } from 'src/app/models/products/products.model';
 import { ProductsService } from 'src/app/services/products.service';
 
@@ -12,17 +12,29 @@ export class ManageProductsComponent {
   products: Product[] = []
   faPancil = faPencil
   faTrash = faTrash
-
+  faRepeat = faRepeat
 
   constructor(private productsService: ProductsService){ }
 
   ngOnInit() {
-    setInterval(() => { 
       this.productsService.getAllProducts().then(products => {
         this.products = products;
+        console.log('product load');
+        
       }).catch(error => {
         console.error('Error fetching products:', error);
       });
-    }, 2000);
+    
+  }
+
+
+
+
+  deleteProduct(name:string){  
+    this.productsService.deleteProduct(name)
+    console.log('Product Deleted.')
+    setTimeout(() => {
+      this.ngOnInit()
+    }, 100);
   }
 }

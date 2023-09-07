@@ -40,13 +40,29 @@ export class ProductsService {
     }
   }
 
-  updateProduct(index: number, updateProduct: Product){
-    if (this.product) {
-      this.product[index] = updateProduct;
+  async updateProduct(name: string, updateProduct: Product){
+    const { data, error } = await this.supabase
+    .from('Products')
+    .update({ name: updateProduct })
+    .eq('name', name)
+    .select()
+    if (error) {
+      console.error('here we have an error on updateProduct():', error)
+    }else{
+      console.log('Productd updated');
+
     }
   }
 
-  deleteProduct(index:number){
-    this.product?.splice(index, 1)
+  async deleteProduct(name:string){
+    const { error } = await this.supabase
+    .from('Products')
+    .delete()
+    .eq( 'name', name)
+    if (error) {
+      console.error('here we have an error on deleteProduct():', error)
+    }else{
+      console.log('Productd Deleted succesfully');
+    }
   }
 }

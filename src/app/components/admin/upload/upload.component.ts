@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Product } from 'src/app/models/products/products.model';
 import { ProductsService } from 'src/app/services/products.service';
 import { faAdd, faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import { ManageProductsComponent } from '../manage-products/manage-products.component';
 
 @Component({
   selector: 'app-upload',
@@ -39,7 +40,7 @@ export class UploadComponent {
 
   ngOnInit() {
     this.productService.getAllProducts().then(products => {
-      this.products = products;
+      this.products = products;            
     }).catch(error => {
       console.error('Error fetching products:', error);
     });
@@ -48,7 +49,9 @@ export class UploadComponent {
   onFormSubmit(form: NgForm){
     console.log('FORM SUBMITED');
     console.log(form);
-    
+    setTimeout(() => {
+      this.ngOnInit()
+    }, 100);
     return this.productService.addProduct(new Product(form.value.name, form.value.description, form.value.price, form.value.avalaible, form.value.category))
   }
 }
