@@ -14,21 +14,29 @@ export class ManageProductsComponent {
   faTrash = faTrash
   faRepeat = faRepeat
 
-  constructor(private productsService: ProductsService){ }
+  editingIndices: number[] = []
 
-  ngOnInit() {
-      this.productsService.getAllProducts().then(products => {
-        this.products = products;
-        console.log('product load');
-        
-      }).catch(error => {
-        console.error('Error fetching products:', error);
-      });
-    
+
+  constructor(private productsService: ProductsService){ }
+  toggleEdit(index: number) {
+    if (this.editingIndices.includes(index)) {
+      this.editingIndices = this.editingIndices.filter((i) => i !== index);
+    } else {
+      this.editingIndices.push(index);
+    }
+  }
+  isEditing(index: number): boolean {
+    return this.editingIndices.includes(index);
   }
 
-
-
+  ngOnInit() {
+    this.productsService.getAllProducts().then(products => {
+      this.products = products;
+      console.log('product load');       
+    }).catch(error => {
+      console.error('Error fetching products:', error);
+    });
+  }
 
   deleteProduct(name:string){  
     this.productsService.deleteProduct(name)
@@ -36,5 +44,9 @@ export class ManageProductsComponent {
     setTimeout(() => {
       this.ngOnInit()
     }, 100);
+  }
+
+  updateProduct(){
+    
   }
 }

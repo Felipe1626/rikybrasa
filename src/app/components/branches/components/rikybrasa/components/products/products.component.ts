@@ -15,15 +15,53 @@ export class ProductsComponent implements OnInit{
   faClose = faClose
   faShoppingBasket = faShoppingBasket
 
-  quantity = 0
+  quantity: number = 1
 
-  OpenImg(){}
+  purchaseIndices: number[] = []
+  imageIndices: number[] = []
 
-  toggleQuantity(){}
 
-  removeCuantity(){}
+  togglePurchase(index: number) {
+    if (this.purchaseIndices.includes(index)) {
+      this.purchaseIndices = this.purchaseIndices.filter((i) => i !== index);
+    } else {
+      this.purchaseIndices.push(index);
+    }
+  }
+  purchase(index: number): boolean {
+    return this.purchaseIndices.includes(index);
+  }
 
-  addQuantity(){}
+  OpenImg(index: number){
+    if (this.imageIndices.includes(index)) {
+      this.imageIndices = this.imageIndices.filter((i) => i !== index);
+    } else {
+      this.imageIndices.push(index);
+    }
+  }
+  isOpen(index: number): boolean {
+    return this.imageIndices.includes(index);
+  }
+
+  removeQuantity(index: number){
+    if (this.quantity > 0) {
+      this.quantity --
+    }
+    if (this.quantity == 0) {
+      this.togglePurchase(index)
+      this.quantity = 1;
+    }
+  }
+
+  addQuantity(){
+    if(this.quantity < 10){
+      this.quantity ++
+    }
+    if (this.quantity === 10) {
+      alert(`Para Compras Superiores a 10 Productos Debes Contactar al Restaurante Para Confirmar Disponibilidad
+      Lllamanos +56 9 9999 9999 `)
+    }
+  }
 
   products: Product[] = [];
 

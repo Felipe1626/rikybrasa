@@ -1,7 +1,7 @@
 <div>
 	<h1 class="uppercase text-2xl font-bold w-full bg-orange-500 mb-2 p-2 rounded text-center text-white">edita o elimina tus productos aqui</h1>
 	<button (click)="ngOnInit()"><fa-icon [icon]="faRepeat"></fa-icon></button>
-	<div *ngFor="let product of products; let i = index; let isEditing" class="w-full p-2 h-auto rounded bg-zinc-950/20 mb-2">
+	<div *ngFor="let product of products; let i = index" class="w-full p-2 h-auto rounded bg-zinc-950/20 mb-2">
 			<div class="bg-orange-300 hover:bg-orange-400 hover:text-white border flex border-orange-600 relative hover:last:opacity-100 h-full rounded p-3">
 					<div class="w-3/6">
 						<div class="flex border-b border-orange-200 mb-2 p-1 capitalize">
@@ -23,7 +23,7 @@
 							<p class="">Disponible</p>
 						</div>
 					</div>
-					<div  *ngIf="isEditing">
+					<div  *ngIf="!isEditing(i)">
 						<div class="flex border-b border-orange-200 mb-2 p-1 capitalize">
 							<p>{{ product.name }}</p>
 						</div>
@@ -44,33 +44,33 @@
 							<p *ngIf="product.avalaible === false">NO</p>
 						</div>
 						<div class="flex w-20 h-10 justify-between absolute bottom-0 right-0 p-2 opacity-10 hover:opacity-100">
-							<button class="hover:border w-8 hover:bg-orange-600/50 hover:border-orange-500 rounded-full" (click)="isEditing"><fa-icon [icon]="faPancil"></fa-icon> </button>
+							<button class="hover:border w-8 hover:bg-orange-600/50 hover:border-orange-500 rounded-full" (click)="toggleEdit(i)"><fa-icon [icon]="faPancil"></fa-icon></button>
 							<button class="hover:border w-8 hover:bg-orange-600/50 hover:border-orange-500 rounded-full" (click)="deleteProduct(this.product.name)"><fa-icon [icon]="faTrash"></fa-icon></button>
 						</div>
 					</div>
-					<form *ngIf="!isEditing">
+					<form *ngIf="isEditing(i)">
 						<div class="flex border-b border-orange-200 mb-2 p-1 hover:bg-orange-600/50">
-							<input class="w-11/12 rounded capitalize px-1 h-6" placeholder="{{ product.name }}" type="text" name="" id="">
+							<input class="w-11/12 rounded capitalize px-1 h-6 text-orange-950" placeholder="{{ product.name }}" [defaultValue]="product.name" type="text" name="" id="">
 						</div>
 						<div class="flex border-b border-orange-200 mb-2 p-1 hover:bg-orange-600/50">
-							<input class="w-11/12 rounded capitalize px-1 h-6" placeholder="{{ product.description }}" type="text" name="" id="">
+							<input class="w-11/12 rounded capitalize px-1 h-6 text-orange-950" placeholder="{{ product.description }}" [defaultValue]="product.description" type="text" name="" id="">
 						</div>
 						<div class="flex border-b border-orange-200 mb-2 p-1 hover:bg-orange-600/50">
-							<input class="w-11/12 rounded px-1 h-6" placeholder="{{ product.price }}" type="number" name="" id="">
+							<input class="w-11/12 rounded px-1 h-6 text-orange-950" placeholder="{{ product.price }}" [defaultValue]="product.price" type="number" name="" id="">
 						</div>
 						<div class="flex border-b border-orange-200 mb-2 p-1 hover:bg-orange-600/50">
 							<input class="w-11/12 rounded px-1 h-6" type="file" name="" id="">
 						</div>
 						<div class="flex h-8 border-b border-orange-200 mb-2 p-1 hover:bg-orange-600/50">
-							<input class="w-11/12 rounded px-1" placeholder="{{ product.Category }}" type="hidden" name="">
+							<input class="w-11/12 rounded px-1" placeholder="{{ product.Category }}" [defaultValue]="product.Category" type="hidden" name="">
 						</div>
 						<div class="flex h-8 mb-2 p-1 hover:bg-orange-600/50">
 							<input class="w-6" type="radio" name="" id="">
 							<input class="w-6" type="radio" name="" id="">
 						</div>
 						<div class="flex w-full h-9 px-1 justify-between">
-							<button class="w-[12ch] p-1 rounded text-sm border border-orange-900 uppercase text-white bg-orange-800/40" (click)="!isEditing">Cancelar</button>
-							<button class="w-[12ch] p-1 rounded text-sm border border-orange-900 uppercase text-white bg-orange-800/40" >Actualizar</button>
+							<button class="w-[12ch] p-1 rounded text-sm border border-orange-900 uppercase text-white bg-orange-800/40" (click)="toggleEdit(i)">Cancelar</button>
+							<button class="w-[12ch] p-1 rounded text-sm border border-orange-900 uppercase text-white bg-orange-800/40" (click)="updateProduct()" >Actualizar</button>
 						</div>
 					</form>
 			</div>
