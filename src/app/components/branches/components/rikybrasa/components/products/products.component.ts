@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/products/products.model';
 import { ProductsService } from 'src/app/services/products.service';
 import { faHandPointer, faPenToSquare } from '@fortawesome/free-regular-svg-icons';
-import { faClose, faShoppingBasket } from '@fortawesome/free-solid-svg-icons';
+import { faArrowUp, faClose, faShoppingBasket } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-products',
@@ -14,6 +14,7 @@ export class ProductsComponent implements OnInit{
   faPenToSquare = faPenToSquare
   faClose = faClose
   faShoppingBasket = faShoppingBasket
+  faArrowUp = faArrowUp
 
   quantity: number = 1
 
@@ -59,7 +60,7 @@ export class ProductsComponent implements OnInit{
     }
     if (this.quantity === 10) {
       alert(`Para Compras Superiores a 10 Productos Debes Contactar al Restaurante Para Confirmar Disponibilidad
-      Lllamanos +56 9 9999 9999 `)
+      Llamanos +57 3124023188`)
     }
   }
 
@@ -68,14 +69,19 @@ export class ProductsComponent implements OnInit{
   constructor(private productsService: ProductsService){ }
 
   ngOnInit() {
+    this.productsService.getAllProducts().then(products => {
+      this.products = products;
+    }).catch(error => {
+      console.error('Error fetching products:', error);
+    });
     setInterval(() => { 
-      this.productsService.getAllProducts().then(products => {
-        this.products = products;
-      }).catch(error => {
-        console.error('Error fetching products:', error);
-      });
+      if (this.ngOnInit) {
+        this.ngOnInit()
+      }
     }, 20000);
   }
+
+  
 }
      
      

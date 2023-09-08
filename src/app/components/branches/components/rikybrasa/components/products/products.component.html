@@ -1,8 +1,10 @@
-<div >
-    
-    <div *ngFor="let product of products; let i = index" class="product_cart relative grid grid-cols-3 grid-rows-3 rounded-md border-2 border-orange-500 mb-5 p-1 px-2 h-52 text-orange-50 bg-orange-300/70">
+<div id="up" class="relative">
+  <img src="../../../../../../../assets/LogoRickyBrasaTransparent.png" class="rounded-full h-48 mx-auto" alt="">
+  <h1 class="text-orange-100 ml-3 -translate-y-5 text-3xl font-bold">Bienvenido a Riky Brasa </h1>  
+
+    <div *ngFor="let product of products; let i = index" class="product_cart relative grid grid-cols-3 grid-rows-3 rounded-md border-2 border-orange-300 mb-5 p-1 px-2 h-52 text-orange-50 bg-orange-600/70">
         <div class="w-full col-span-2 row-span-2">
-          <h3 class="text-lg font-bold uppercase">{{ product.name }}</h3>
+          <h3 class="text-lg font-bold uppercase text-white">{{ product.name }}</h3>
           <p class="capitalize">{{ product.description }}</p>
           <div class="grid grid-cols-2 gap-0 font-semibold">
             <div >
@@ -20,8 +22,8 @@
         <button (click)="OpenImg(i)" id="productImg" class="row-span-2 w-full">
           <fa-icon [icon]="faHandPointer" *ngIf="!isOpen(i)" class="text-white border border-orange-900/40 rounded-full w-6 bg-orange-900/10 absolute top-2 right-3"></fa-icon>
           <fa-icon [icon]="faClose" *ngIf="isOpen(i)" class="text-white border z-10 border-orange-900/40 rounded-full w-6 bg-orange-900/10 absolute bottom-2 right-3"></fa-icon>
-          <img src="#" *ngIf="!isOpen(i)" class="h-full w-full mx-auto rounded-md rounded-l-none" alt="Foto de {{ product.name }}" src="../../../../../../../assets/default_img.png">
-          <img src="#" *ngIf="isOpen(i)" class="h-[98%] w-[99%] absolute rounded-md top-1 left-[0.15rem]" alt="" src="../../../../../../../assets/defaultBig_img.png">
+          <img *ngIf="!isOpen(i)" class="h-full w-full mx-auto rounded-md rounded-l-none" alt="Foto de {{ product.name }}" src="../../../../../../../assets/default_img.png">
+          <img *ngIf="isOpen(i)" class="h-[98%] w-[99%] absolute rounded-md top-1 left-[0.15rem]" alt="" src="../../../../../../../assets/defaultBig_img.png">
         </button>
         <div class="col-span-3 py-2">
           <!--Order -->
@@ -68,4 +70,9 @@
           </form>
         </div>
     </div>
-</div>
+  </div>
+  <div class="w-10 h-10 rounded-full border-orange-200 bg-orange-600/50 hover:bg-orange-500 hover:border-white text-white border fixed bottom-16 right-12">
+    <a href="#up" class="w-full h-full flex justify-center items-center">
+      <fa-icon [icon]="faArrowUp"></fa-icon>
+    </a>
+  </div>
