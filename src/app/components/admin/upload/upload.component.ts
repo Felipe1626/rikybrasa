@@ -11,7 +11,7 @@ import { ManageProductsComponent } from '../manage-products/manage-products.comp
   styleUrls: ['./upload.component.scss']
 })
 export class UploadComponent {
-  selectedValue: string = 'Selecciona una Categoria';
+  selectedValue: string = '';
   inputValue: string = ''
 
   handleAnchorClick(value: string) {
@@ -52,6 +52,9 @@ export class UploadComponent {
     setTimeout(() => {
       this.ngOnInit()
     }, 100);
+    setTimeout(() => {
+      form.resetForm()
+    }, 500);
     return this.productService.addProduct(new Product(form.value.name, form.value.description, form.value.price, form.value.avalaible, form.value.category))
   }
 }

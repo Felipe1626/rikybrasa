@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './components/admin/admin.component';
-import { ProductsComponent } from './components/branches/components/rikybrasa/components/products/products.component';
+import { RikybrasaComponent } from './components/branches/components/rikybrasa/rikybrasa.component';
 
 const routes: Routes = [
-    { path: '', component: ProductsComponent },
+    { path: '', component: RikybrasaComponent },
     { path: 'admin', component: AdminComponent }
 ]
 
