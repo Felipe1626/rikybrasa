@@ -15,6 +15,7 @@ import { ProductsService } from './services/products.service';
 import { SupabaseService } from './services/supabase.service';
 import { ManageProductsComponent } from './components/admin/manage-products/manage-products.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CartComponent } from './components/cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     BranchesComponent,
     RikybrasaComponent,
     ProductsComponent,
-    ManageProductsComponent
+    ManageProductsComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,

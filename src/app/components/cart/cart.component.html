@@ -1,0 +1,61 @@
+<div class="" id="cart">
+  <div class="w-10 h-10 rounded-full border-orange-200 bg-orange-300/50 hover:bg-orange-500 hover:border-white text-white border ">
+    <a (click)="comingSoon()" class="w-full h-full flex justify-center items-center">
+      <fa-icon [icon]="faReceipt"></fa-icon>
+    </a>
+  </div>
+  <div class="fixed top-5 left-6 p-4 bg-orange-400 w-96 border-4 border-yellow-200 rounded-md">
+    <h1 class="text-center font-bold text-3xl text-white mb-2">Tu Pedido</h1>
+    <!--Start Product-->
+    <div class="border border-yellow-300 rounded-md p-2 mb-5">
+      <div class="flex w-full">
+        <img src="../../../assets/default_img.png" alt="Producto" class="w-14 h-14 rounded-full mr-2">
+        <p class="h-14 leading-[3.5rem] font-medium text-yellow-100 text-2xl">Pollo Asado</p>
+      </div>
+      <div class="flex pl-16">
+        <p class=" font-medium text-yellow-100 h-8 leading-8 text-center mr-5"><strong>Cantidad:</strong> 2</p>
+        <p class=" font-medium text-yellow-100 h-8 leading-8 text-center"><strong>Valor:</strong> 31.000</p>
+      </div>
+      <div class="text-orange-100 pl-2 mb-2 hidden">
+        <p><strong>Tu Comentario: <br></strong>Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis labore beatae exercitationem! Sit, ex. Ab voluptatum aliquid numquam ad mollitia sequi repellendus est asperiores consectetur atque! Et doloribus ut necessitatibus!</p>
+      </div>
+      <div class="flex px-5 justify-between">
+        <button class="w-20 h-10 text-white bg-orange-500/50 rounded-md border border-orange-300">
+          <fa-icon [icon]="faBan"></fa-icon>
+        </button>
+        <div class="w-20 h-10 border-2 flex border-orange-300 rounded-md mb-2 hover:border-3 hover:border-orange-100">
+          <button  class="w-6 rounded-md rounded-r-none bg-orange-500/50 text-white">
+            -
+          </button>
+          <span class="w-8 leading-10 bg-orange-100 text-orange-950 text-center">2</span>
+          <input type="hidden" name="quantity">
+          <button class="rounded-md rounded-l-none bg-orange-500/50 text-white w-6">
+            +
+          </button>          
+        </div>
+        <button class="w-20 h-10 text-white bg-orange-500/50 rounded-md border border-orange-300">
+          <fa-icon [icon]="faPenToSquare"></fa-icon>
+        </button>
+      </div>
+    </div>
+    <!--End Product -->
+    <div class="rounded-md border border-yellow-200 mb-5" >
+      <div class="flex justify-between px-2 border-b border-yellow-300 text-yellow-50 font-semibold">
+        <p class="text-center w-8/12">Tota Productos</p>
+        <p class="w-4/12 border-l border-yellow-300 text-center">Valor total</p>
+      </div>
+      <div class="flex justify-between px-2 text-white font-bold">
+        <p class="w-8/12 text-center">12</p>
+        <p class="w-4/12 border-l border-yellow-300 text-center">20.000</p>
+      </div>
+    </div>
+    <div class="flex justify-between mb-5">
+      <button class="border border-yellow-400 rounded-md w-36 p-2 bg-orange-500/50 text-white">Eliminar Todo<fa-icon class="ml-1" [icon]="faTrashCan"></fa-icon></button>
+      <button class="border border-yellow-400 rounded-md w-36 p-2 bg-orange-500/50 text-white">Pagar <fa-icon class="ml-1" [icon]="faDollar"></fa-icon></button>
+    </div>
+    <div class="flex justify-end">
+      <button class="w-10 h-10 rounded-full border border-orange-300 bg-orange-400 text-white"><fa-icon [icon]="faClose"></fa-icon></button>
+    </div>
+  </div>
+
+</div>
