@@ -17,4 +17,8 @@ export class RikybrasaComponent {
   faMobilePhone = faMobilePhone
   faPhoneFlip = faPhoneFlip
   faLocationDot = faLocationDot
+
+  comingSoon(){
+    alert('Proximamente Podras Hacer Tus Pedidos Acá')
+  }
 }

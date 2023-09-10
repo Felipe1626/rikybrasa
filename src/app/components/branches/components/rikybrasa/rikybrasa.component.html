@@ -1,4 +1,22 @@
 <div id="up">
+  <img src="../../../../../assets/LogoRickyBrasaTransparent.png" class="rounded-full h-48 mx-auto" alt="">
+  <h1 class="text-orange-100 ml-3 -translate-y-5 text-3xl font-bold">Bienvenido a Riky Brasa </h1>  
+  <nav class="w-full overflow-scroll overflow-y-hidden mb-5" >
+    <div class="flex mb-2">
+      <a class="py-2 px-3 mr-2 whitespace-nowrap text-white border border-orange-200 rounded-md uppercase font-bold" href="#pollo asado">Pollo Asado</a>
+      <a class="py-2 px-3 mr-2 whitespace-nowrap text-white border border-orange-200 rounded-md uppercase font-bold" href="#pollo broaster">Pollo Broaster</a>
+      <a class="py-2 px-3 mr-2 whitespace-nowrap text-white border border-orange-200 rounded-md uppercase font-bold" href="#pollo frito">Pollo Frito</a>
+      <a class="py-2 px-3 mr-2 whitespace-nowrap text-white border border-orange-200 rounded-md uppercase font-bold" href="#carnes">Carnes</a>
+      <a class="py-2 px-3 mr-2 whitespace-nowrap text-white border border-orange-200 rounded-md uppercase font-bold" href="#pescados">Pesacados</a>
+    </div>
+    <div class="flex mb-1">
+      <a class="py-2 px-3 mr-2 whitespace-nowrap text-white border border-orange-200 rounded-md uppercase font-bold" href="#bandejas">Bandejas</a>
+      <a class="py-2 px-3 mr-2 whitespace-nowrap text-white border border-orange-200 rounded-md uppercase font-bold" href="#arroces">Arroces</a>
+      <a class="py-2 px-3 mr-2 whitespace-nowrap text-white border border-orange-200 rounded-md uppercase font-bold" href="#sopas">Sopas</a>
+      <a class="py-2 px-3 mr-2 whitespace-nowrap text-white border border-orange-200 rounded-md uppercase font-bold" href="#bebidas">Bebidas</a>
+      <a class="py-2 px-3 mr-2 whitespace-nowrap text-white border border-orange-200 rounded-md uppercase font-bold" href="#porciones">Porciones</a>
+    </div>
+  </nav>
   <app-products></app-products>
   <div id="contact" class="p-3 bg-orange-500 mb-10 rounded-md border-2 border-orange-300">
     <h2 class="uppercase text-2xl text-white font-bold text-center mb-2">Contactanos</h2>
@@ -34,7 +52,7 @@
 <div class="fixed bottom-1 w-10/12 flex justify-center items-center">
   <div class="w-48 px-5 h-14 justify-between items-center flex border-orange-50 border rounded-full bg-orange-600/50">
     <div class="w-10 h-10 rounded-full border-orange-200 bg-orange-300/50 hover:bg-orange-500 hover:border-white text-white border ">
-      <a href="#up" class="w-full h-full flex justify-center items-center">
+      <a (click)="comingSoon()" class="w-full h-full flex justify-center items-center">
         <fa-icon [icon]="faReceipt"></fa-icon>
       </a>
     </div>

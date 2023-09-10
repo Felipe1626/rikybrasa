@@ -1,8 +1,5 @@
 <div class="relative">
-  <img src="../../../../../../../assets/LogoRickyBrasaTransparent.png" class="rounded-full h-48 mx-auto" alt="">
-  <h1 class="text-orange-100 ml-3 -translate-y-5 text-3xl font-bold">Bienvenido a Riky Brasa </h1>  
-
-    <div *ngFor="let product of products; let i = index" class="product_cart relative grid grid-cols-3 grid-rows-3 rounded-md border-2 border-orange-300 mb-5 p-1 px-2 h-52 text-orange-50 bg-orange-600/70">
+    <div *ngFor="let product of products; let i = index" id="{{product.Category}}" class="product_cart relative grid grid-cols-3 grid-rows-3 rounded-md border-2 border-orange-300 mb-5 p-1 px-2 h-52 text-orange-50 bg-orange-600/70">
         <div class="w-full col-span-2 row-span-2">
           <h3 class="text-lg font-bold uppercase text-white">{{ product.name }}</h3>
           <p class="capitalize">{{ product.description }}</p>
