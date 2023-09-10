@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { faFacebook, faInstagram, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
-import { faArrowUp, faPhone } from '@fortawesome/free-solid-svg-icons';
+import { faArrowUp, faPhone, faReceipt, faMobilePhone, faPhoneFlip, faLocationDot } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-rikybrasa',
@@ -13,4 +13,8 @@ export class RikybrasaComponent {
   faWhatsapp = faWhatsapp
   faInstagram = faInstagram
   faFacebook = faFacebook
+  faReceipt = faReceipt
+  faMobilePhone = faMobilePhone
+  faPhoneFlip = faPhoneFlip
+  faLocationDot = faLocationDot
 }
