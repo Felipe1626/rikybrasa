@@ -19,6 +19,6 @@ export class RikybrasaComponent {
   faLocationDot = faLocationDot
 
   comingSoon(){
-    alert('Proximamente Podras Hacer Tus Pedidos Acá')
+    alert('Próximamente Podrás Hacer Tus Pedidos Aquí')
   }
 }
