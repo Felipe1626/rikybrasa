@@ -8,7 +8,7 @@ body{
 
 *::-webkit-scrollbar{
     width: 0.3rem;
-    background: rgb(185, 56, 9);
+    background: rgb(231, 75, 18);
 }
 *::-webkit-scrollbar:hover{
     width: 0.5rem;
@@ -17,12 +17,12 @@ body{
 }
 
 *::-webkit-scrollbar-thumb{
-    background: rgb(241, 154, 4);
-    border: 0.5px solid rgba(255, 249, 198, 0.502);
+    background: rgb(241, 217, 4);
+    border: 0.5px solid whitesmoke;
     border-radius: 10px;
 }
 
 *::-webkit-scrollbar-thumb:hover{
-    background: rgb(231, 91, 4);
+    background: rgb(244, 138, 72);
     border: 1px solid white;
 }
