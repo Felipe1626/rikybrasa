@@ -50,13 +50,17 @@
 		</div>
 		<div class="w-full mb-2 flex flex-col justify-center items-center">
 			<p class="w-5/6 cursor-default">Foto del Producto</p>
-			<div class="rounded-t border border-b-orange-200 w-5/6 h-28 bg-white justify-center flex flex-col items-center px-6">
-				<p class="text-xs mb-2">Foto 116 x 131</p>
-				<input class="h-20 w-5/6" type="file" id="">
+			<div class="rounded-t border border-b-orange-200 w-5/6 h-16 bg-white justify-center flex flex-col items-center px-6">
+				<p class="text-xs mb-2">Foto 10 x 10</p>
+				<input class="h-8 w-full" type="file" ngModel name="imageSm" (change)="onFileSelected($event)">
 			</div>
-			<div class="rounded-b w-5/6 h-28 bg-white flex flex-col justify-center items-center px-6">
+			<div class="border border-b-orange-200 w-5/6 h-16 bg-white justify-center flex flex-col items-center px-6">
+				<p class="text-xs mb-2">Foto 116 x 131</p>
+				<input class="h-8 w-full" name="imagemd" type="file" ngModel name="imageMd" (change)="onFileSelected($event)">
+			</div>
+			<div class="rounded-b w-5/6 h-16 bg-white flex flex-col justify-center items-center px-6">
 				<p class="text-xs mb-2">Foto 368 x 208</p>
-				<input class="h-20 w-5/6" type="file" id="">
+				<input class="h-8 w-full" type="file" ngModel name="imageLg" (change)="onFileSelected($event)">
 			</div>
 		</div>
 		<input id="category" type="hidden" [(ngModel)]="selectedValue" name="category" value="{{selectedValue}}">
