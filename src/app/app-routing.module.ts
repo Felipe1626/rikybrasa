@@ -5,7 +5,7 @@ import { RikybrasaComponent } from './components/branches/components/rikybrasa/r
 
 const routes: Routes = [
     { path: '', component: RikybrasaComponent },
-    { path: 'admin', component: AdminComponent }
+    { path: 'admin/rikybrasa/324928', component: AdminComponent }
 ]
 
 @NgModule ({
