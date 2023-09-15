@@ -1,15 +1,15 @@
 <div class="" id="cart">
   <div class="w-10 h-10 rounded-full border-orange-200 bg-orange-300/50 hover:bg-orange-500 hover:border-white text-white border ">
-    <a (click)="comingSoon()" class="w-full h-full flex justify-center items-center">
+    <a (click)="openCart()" class="w-full h-full flex justify-center items-center">
       <fa-icon [icon]="faReceipt"></fa-icon>
     </a>
   </div>
   <div class="fixed hidden top-5 left-6 p-4 bg-orange-400 w-96 border-4 border-yellow-200 rounded-md">
     <h1 class="text-center font-bold text-3xl text-white mb-2">Tu Pedido</h1>
     <!--Start Product-->
-    <div class="border border-yellow-300 rounded-md p-2 mb-5">
+    <div *ngFor="let product" class="border border-yellow-300 rounded-md p-2 mb-5">
       <div class="flex w-full">
-        <img src="../../../assets/default_img.png" alt="Producto" class="w-14 h-14 rounded-full mr-2">
+        <img src="{{ product }}" alt="Producto" class="w-14 h-14 rounded-full mr-2">
         <p class="h-14 leading-[3.5rem] font-medium text-yellow-100 text-2xl">Pollo Asado</p>
       </div>
       <div class="flex pl-16">

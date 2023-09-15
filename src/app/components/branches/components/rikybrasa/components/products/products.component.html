@@ -19,12 +19,12 @@
         <button (click)="OpenImg(i)" id="productImg" class="row-span-2 w-full">
           <fa-icon [icon]="faHandPointer" *ngIf="!isOpen(i)" class="text-white border border-orange-900/40 rounded-full w-6 bg-orange-900/10 absolute top-2 right-3"></fa-icon>
           <fa-icon [icon]="faClose" *ngIf="isOpen(i)" class="text-white border z-10 border-orange-900/40 rounded-full w-6 bg-orange-900/10 absolute bottom-2 right-3"></fa-icon>
-          <img *ngIf="!isOpen(i)" class="h-full w-full mx-auto rounded-md rounded-l-none" alt="Foto de {{ product.name }}" src="../../../../../../../assets/default_img.png">
-          <img *ngIf="isOpen(i)" class="h-[98%] w-[99%] absolute rounded-md top-1 left-[0.15rem]" alt="" src="../../../../../../../assets/defaultBig_img.png">
+          <img *ngIf="!isOpen(i)" class="h-full w-full mx-auto rounded-md rounded-l-none" alt="Foto de {{ product.name }}" src="{{ product.imageMd }}">
+          <img *ngIf="isOpen(i)" class="h-[98%] w-[99%] absolute rounded-md top-1 left-[0.15rem]" alt="" src="{{ product.imageLg }}">
         </button>
         <div class="col-span-3 py-2">
           <!--Order -->
-          <button *ngIf="!purchase(i)" (click)="togglePurchase(i)" class="hidden rounded-md  border-2 border-orange-900 bg-orange-300 w-14 h-10">
+          <button *ngIf="!purchase(i)" (click)="togglePurchase(i)" class="rounded-md  border-2 border-orange-900 bg-orange-300 w-14 h-10">
             <fa-icon [icon]="faShoppingBasket" class="text-2xl mx-auto text-orange-50"></fa-icon>
           </button>
           <form *ngIf="purchase(i)" class="w-full justify-between px-10 py-2 flex bg-orange-300/70 rounded -translate-y-6">

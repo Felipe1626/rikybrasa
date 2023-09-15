@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { faAdd, faAngleDown, faPencil, faRepeat, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Product } from 'src/app/models/products/products.model';
 import { ProductsService } from 'src/app/services/products.service';
@@ -16,30 +17,30 @@ export class ManageProductsComponent {
   faAdd = faAdd
   faAngleDown = faAngleDown
 
-
-  editingIndices: number[] = []
   selectedValue: string = '';
   inputValue: string = ''
-
-
+  editingIndices: number[] = []
+  
   constructor(private productsService: ProductsService){ }
 
-
   handleAClick(value: string, index: number) {
-    this.selectedValue = value;
-    this.selectedValue
+    if (this.editingIndices.includes(index)) {
+      this.selectedValue = value;
+      this.selectedValue
+    }
     this.openOption(index);
   }
   
   openOption(index :number){
-    const options = document.getElementById('options')    
-    const select = document.getElementById('select')
-    if (select && options) {
-      select.classList.toggle('border-blue-500')
-      options.classList.toggle('hidden')
-    }   
+    if (this.editingIndices.includes(index)) {
+      const options = document.getElementById('options')    
+      const select = document.getElementById('select')
+      if (select && options) {
+        select.classList.toggle('border-blue-500')
+        options.classList.toggle('hidden')
+      }   
+    }
   }
-
 
   toggleEdit(index: number) {
     if (this.editingIndices.includes(index)) {
@@ -69,7 +70,9 @@ export class ManageProductsComponent {
     }, 100);
   }
 
-  updateProduct(){
-    
+  async updateProduct(index: number, form: NgForm){
+    console.log(form)
+    this.isEditing(index)
+    await this.ngOnInit()
   }
 }

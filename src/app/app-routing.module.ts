@@ -2,10 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './components/admin/admin.component';
 import { RikybrasaComponent } from './components/branches/components/rikybrasa/rikybrasa.component';
+import { UploadComponent } from './components/admin/upload/upload.component';
+import { ManageProductsComponent } from './components/admin/manage-products/manage-products.component';
 
 const routes: Routes = [
     { path: '', component: RikybrasaComponent },
-    { path: 'admin/rikybrasa/324928', component: AdminComponent }
+    { path: 'admin/rikybrasa/324928', component: UploadComponent },
+    { path: 'productos', component: ManageProductsComponent}
 ]
 
 @NgModule ({

@@ -52,34 +52,25 @@ export class UploadComponent {
 
   async onFormSubmit(form: NgForm){
     const imageNames: string[] = [];
-
-  for (const file of this.selectedFiles) {
-    if (file) {
-      await this.productService.addImage(file.name, file)
-      const imageName = file.name
-
-      if (imageNames) {
-        imageNames.push(imageName)
-      } else {
-        console.error(`Error uploading an image:`, file)
+    for (const file of this.selectedFiles) {
+      if (file) {
+        await this.productService.addImage(file.name, file)
+        const imageName = file.name
+        if (imageNames) {
+          imageNames.push(imageName)
+        } else {
+          console.error(`Error uploading an image:`, file)
+        }
       }
     }
-  }
     
     await this.ngOnInit()    
     await setTimeout(() => {
       form.resetForm()
     }, 500);
-    await console.log('FORM SUBMITED');
-
     
     return this.productService.addProduct(new Product(form.value.name, form.value.description, form.value.price, form.value.avalaible, form.value.category, imageNames[0], imageNames[1], imageNames[2]))
   }
-
-
-
-
-
 
 }
 

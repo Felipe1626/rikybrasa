@@ -35,10 +35,6 @@ export class ProductsService {
   }
 
   async getImageUrl(imageName: string): Promise<string> {
-    if (!imageName) {
-      return 'error, no name';
-    }
-
     const { data, error } = await this.supabase
       .storage
       .from('product_img')
@@ -48,7 +44,6 @@ export class ProductsService {
       console.error(`Error getting the signed URL for image: ${imageName}`);
       return 'error';
     }
-
     return data.signedUrl;
   }
 

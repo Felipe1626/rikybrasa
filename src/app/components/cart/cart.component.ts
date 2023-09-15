@@ -16,6 +16,10 @@ export class CartComponent {
   faBan = faBan
   faDollar =faMoneyCheckDollar
 
+  openCart(){
+    
+  }
+
   comingSoon(){
     alert('Próximamente Podrás Hacer Tus Pedidos Aquí')
   }

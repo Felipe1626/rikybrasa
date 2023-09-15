@@ -1,89 +1,116 @@
-<div>
-	<h1 class="uppercase text-2xl font-bold w-full bg-orange-500 mb-2 p-2 rounded text-center text-white">edita o elimina tus productos aqui</h1>
-	<button (click)="ngOnInit()"><fa-icon [icon]="faRepeat"></fa-icon></button>
-	<div *ngFor="let product of products; let i = index" class="w-full p-2 h-auto rounded bg-zinc-950/20 mb-2">
-			<div class="bg-orange-300 hover:bg-orange-400 hover:text-white border flex border-orange-600 relative hover:last:opacity-100 h-full rounded p-3">
-					<div class="w-3/6">
-						<div class="flex border-b border-orange-200 mb-2 h-16 p-1 capitalize">
-							<p class="">Nombre</p>
-						</div>
-						<div class="flex border-b h-28 border-orange-200 mb-2 p-1 capitalize">
-							<p class="">Descripcion</p>
-						</div>
-						<div class="flex border-b border-orange-200 mb-2 p-1 capitalize">
-							<p class="">Price</p>
-						</div>
-						<div class="flex border-b border-orange-200 h-44 mb-2 p-1 capitalize">
-							<p class="">imagen</p>
-						</div>
-						<div class="flex border-b border-orange-200 mb-2 p-1 capitalize">
-							<p class="">Categoria</p>
-						</div>
-						<div class="flex mb-2 p-1 capitalize">
-							<p class="">Disponible</p>
-						</div>
-					</div>
-					<div  *ngIf="!isEditing(i)">
-						<div class="flex border-b border-orange-200 mb-2 p-1 h-16 capitalize">
-							<p>{{ product.name }}</p>
-						</div>
-						<div class="flex border-b h-28 border-orange-200 mb-2 p-1 capitalize">
-							<p>{{ product.description }}</p>
-						</div>
-						<div class="flex border-b border-orange-200 mb-2 p-1 capitalize">
-							<p>{{ product.price | currency }}</p>
-						</div>
-						<div class="h-48 p-1 flex border-b border-orange-200 mb-2 px-1 capitalize">
-							<img src="{{product.imageSm}}" alt="" srcset="" class="w-10 h-10">
-						</div>
-						<div class="flex border-b border-orange-200 mb-2 p-1 capitalize">
-							<p>{{ product.Category }}</p>
-						</div>
-						<div class="flex mb-2 p-1 capitalize">
-							<p *ngIf="product.avalaible === true">SI</p>
-							<p *ngIf="product.avalaible === false">NO</p>
-						</div>
-						<div class="flex w-20 h-10 justify-between absolute bottom-0 right-0 p-2 opacity-10 hover:opacity-100">
-							<button class="hover:border w-8 hover:bg-orange-600/50 hover:border-orange-500 rounded-full" (click)="toggleEdit(i)"><fa-icon [icon]="faPancil"></fa-icon></button>
-							<button class="hover:border w-8 hover:bg-orange-600/50 hover:border-orange-500 rounded-full" (click)="deleteProduct(this.product.name)"><fa-icon [icon]="faTrash"></fa-icon></button>
-						</div>
-					</div>
-					<form *ngIf="isEditing(i)">
-						<div class="flex h-16 border-b border-orange-200 mb-2 p-1 hover:bg-orange-600/50">
-							<input class="w-11/12 rounded capitalize px-1 h-6 text-orange-950" placeholder="{{ product.name }}" [defaultValue]="product.name" type="text" name="" id="">
-						</div>
-						<div class="flex h-28 border-b border-orange-200 mb-2 p-1 hover:bg-orange-600/50">
-							<input class="w-11/12 rounded capitalize px-1 h-6 text-orange-950" placeholder="{{ product.description }}" [defaultValue]="product.description" type="text" name="" id="">
-						</div>
-						<div class="flex border-b border-orange-200 mb-2 p-1 hover:bg-orange-600/50">
-							<input class="w-11/12 rounded px-1 h-6 text-orange-950" placeholder="{{ product.price }}" [defaultValue]="product.price" type="number" name="" id="">
-						</div>
-						<div class="w-full h-44 border-b border-orange-200  flex flex-col justify-center items-center">
-							<div class="rounded-t border border-b-orange-200 w-5/6 h-16 bg-white justify-center flex flex-col items-center px-6">
-								<p class="text-xs mb-2">Foto 10 x 10</p>
-								<input class="h-8 w-full" type="file" ngModel name="imageSm">
-							</div>
-							<div class="border border-b-orange-200 w-5/6 h-16 bg-white justify-center flex flex-col items-center px-6">
-								<p class="text-xs mb-2">Foto 116 x 131</p>
-								<input class="h-8 w-full" name="imagemd" type="file" ngModel name="imageMd">
-							</div>
-							<div class="rounded-b w-5/6 h-16 bg-white flex flex-col justify-center items-center px-6">
-								<p class="text-xs mb-2">Foto 368 x 208</p>
-								<input class="h-8 w-full" type="file" ngModel name="imageLg">
-							</div>
-						</div>
-						<div class="w-5/6 h-8 mx-auto border-b border-orange-200 text-xs leading-10">
-							La Categoria no puede ser editada
-						</div>
-						<div class="flex h-8 mb-2 p-1 hover:bg-orange-600/50">
-							<input class="w-6" type="radio" name="" id="">
-							<input class="w-6" type="radio" name="" id="">
-						</div>
-						<div class="flex w-full h-9 px-1 justify-between">
-							<button class="w-[12ch] p-1 rounded text-sm border border-orange-900 uppercase text-white bg-orange-800/40" (click)="toggleEdit(i)">Cancelar</button>
-							<button class="w-[12ch] p-1 rounded text-sm border border-orange-900 uppercase text-white bg-orange-800/40" (click)="updateProduct()" >Actualizar</button>
-						</div>
-					</form>
+<form #update="ngForm" *ngFor="let product of products; let i = index" class="p-3 mb-5 bg-orange-300/70 ">
+	<!--Name-->
+	<div>
+		<div>Nombre</div>
+		<div>
+			<div *ngIf="!isEditing(i)" class="flexcapitalize">
+				<p>{{ product.name }}</p>
 			</div>
+			<div *ngIf="isEditing(i)" class="flex  hover:bg-orange-600/50">
+				<input class="w-11/12 rounded capitalize px-1 h-6 text-orange-950" [(ngModel)]="product.name" type="text" name="name" [placeholder]="product.name">
+			</div>
+		</div>
 	</div>
-</div>
+	<!--Description-->
+	<div>
+		<div>Descripcion</div>
+		<div>
+			<div *ngIf="!isEditing(i)">
+				<p>{{ product.description }}</p>
+			</div>
+			<div *ngIf="isEditing(i)">
+				<textarea type="text" class="w-11/12 h-24 rounded p-2" [(ngModel)]="product.description" name="description" [placeholder]="product.description"></textarea>
+			</div>
+		</div>
+	</div>
+	<!-- Price -->
+	<div>
+		<div>Precio</div>
+		<div>
+			<div *ngIf="!isEditing(i)">
+				<p>{{ product.price | currency }}</p>
+			</div>
+			<div *ngIf="isEditing(i)">
+				<input class="w-11/12 rounded px-2 h-6 text-orange-950" placeholder="{{ product.price }}" type="number" [(ngModel)]="product.price" name="price" id="">
+			</div>
+		</div>
+	</div>
+	<!-- Image -->
+	<div>
+		<div>Imagenes</div>
+		<div>
+			<div *ngIf="!isEditing(i)">
+				<img src="{{ product.imageSm }}" alt="Imagen Icon">
+				<img src="{{ product.imageMd }}" alt="Imagen Mediana">
+				<img src="{{ product.imageLg }}" alt="Imagen Grande">
+			</div>
+			<div *ngIf="isEditing(i)">
+				<div class="rounded-t border border-b-orange-200 w-5/6 h-16 bg-white justify-center flex flex-col items-center px-6">
+					<p class="text-xs mb-2">Foto 10 x 10</p>
+					<input class="h-8 w-full" type="file" [(ngModel)]="product.imageSm" name="imageSm">
+				</div>
+				<div class="border border-b-orange-200 w-5/6 h-16 bg-white justify-center flex flex-col items-center px-6">
+					<p class="text-xs mb-2">Foto 116 x 131</p>
+					<input class="h-8 w-full" name="imagemd" type="file" [(ngModel)]="product.imageMd" name="imageMd">
+				</div>
+				<div class="rounded-b w-5/6 h-16 bg-white flex flex-col justify-center items-center px-6">
+					<p class="text-xs mb-2">Foto 368 x 208</p>
+					<input class="h-8 w-full" type="file" [(ngModel)]="product.imageLg" name="imageLg">
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Category -->
+	<div>
+		<div>Categoria</div>
+		<div>
+			<div *ngIf="!isEditing(i)">
+				<p>{{ product.Category }}</p>
+			</div>
+			<div *ngIf="isEditing(i)">
+				<input id="category" type="hidden" [(ngModel)]="product.Category" name="category" value="{{selectedValue}}">
+				<div class="select-box relative w-full mb-2 flex flex-col justify-center items-center">
+					<div (click)="openOption(i)" id="select" class="contentSelect w-5/6 h-8 leading-8 capitalize bg-white hover:border hover:border-orange-600 box-border cursor-pointer rounded px-2">
+						{{ selectedValue }} <p *ngIf="!selectedValue">Selecciona una Categoria</p>
+					</div>
+					<div class="absolute cursor-pointer right-10" (click)="openOption(i)">
+						<fa-icon [icon]="faAngleDown"></fa-icon>
+					</div>
+					<div id="options"  class="w-5/6 absolute h-32 overflow-y-scroll z-10 translate-y-20 rounded-b-md hidden">
+						<div class="option pl-2 w-full h-8 flex items-center cursor-pointer relative bg-orange-50 border-b border-orange-400 mx-auto hover:bg-orange-500 hover:text-white" (click)="handleAClick('pollo asado', i)">Pollo Asado</div>
+						<div class="option pl-2 w-full h-8 flex items-center cursor-pointer relative bg-orange-50 border-b border-orange-400 mx-auto hover:bg-orange-500 hover:text-white" (click)="handleAClick('pollo broaster', i)">Pollo Broaster</div>
+						<div class="option pl-2 w-full h-8 flex items-center cursor-pointer relative bg-orange-50 border-b border-orange-400 mx-auto hover:bg-orange-500 hover:text-white" (click)="handleAClick('pollo frito', i)">Pollo Frito</div>
+						<div class="option pl-2 w-full h-8 flex items-center cursor-pointer relative bg-orange-50 border-b border-orange-400 mx-auto hover:bg-orange-500 hover:text-white" (click)="handleAClick('carnes', i)">Carnes</div>
+						<div class="option pl-2 w-full h-8 flex items-center cursor-pointer relative bg-orange-50 border-b border-orange-400 mx-auto hover:bg-orange-500 hover:text-white" (click)="handleAClick('pescados', i)">Pescados</div>
+						<div class="option pl-2 w-full h-8 flex items-center cursor-pointer relative bg-orange-50 border-b border-orange-400 mx-auto hover:bg-orange-500 hover:text-white" (click)="handleAClick('bandejas', i)">Bandejas</div>
+						<div class="option pl-2 w-full h-8 flex items-center cursor-pointer relative bg-orange-50 border-b border-orange-400 mx-auto hover:bg-orange-500 hover:text-white" (click)="handleAClick('arroces', i)">Arroces</div>
+						<div class="option pl-2 w-full h-8 flex items-center cursor-pointer relative bg-orange-50 border-b border-orange-400 mx-auto hover:bg-orange-500 hover:text-white" (click)="handleAClick('sopas', i)">Sopas</div>
+						<div class="option pl-2 w-full h-8 flex items-center cursor-pointer relative bg-orange-50 border-b border-orange-400 mx-auto hover:bg-orange-500 hover:text-white" (click)="handleAClick('bebidas', i)">Bebidas</div>
+						<div class="option pl-2 w-full h-8 flex items-center cursor-pointer relative bg-orange-50 border-b border-orange-400 mx-auto hover:bg-orange-500 hover:text-white" (click)="handleAClick('porciones', i)">Porciones</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Avalaible -->
+	<div>
+		<div>Disponible</div>
+		<div>
+			<div *ngIf="!isEditing(i)">
+				<p>{{ product.avalaible }}</p>
+			</div>
+			<div *ngIf="isEditing(i)">
+				<p class="mr-1 cursor-default">Si</p>
+				<input class="w-8 cursor-pointer" type="radio" [(ngModel)]="product.avalaible" name="avalaible" value="true" id="avalaibleYes">
+				<p class="ml-4 mr-1 cursor-default">No</p>
+				<input class="w-8 cursor-pointer" type="radio" [(ngModel)]="product.avalaible" name="avalaible" value="false" id="avalaibleNo">
+			</div>
+		</div>
+	</div>
+
+	<button class="hover:border w-8 hover:bg-orange-600/50 hover:border-orange-500 rounded-full" *ngIf="!isEditing(i)" (click)="toggleEdit(i)"><fa-icon [icon]="faPancil"></fa-icon></button>
+	<button class="hover:border w-8 hover:bg-orange-600/50 hover:border-orange-500 rounded-full" *ngIf="!isEditing(i)" (click)="deleteProduct(this.product.name)"><fa-icon [icon]="faTrash"></fa-icon></button>
+	
+	<button class="w-[12ch] p-1 rounded text-sm border border-orange-900 uppercase text-white bg-orange-800/40" *ngIf="isEditing(i)" (click)="toggleEdit(i)">Cancelar</button>
+	<button class="w-[12ch] p-1 rounded text-sm border border-orange-900 uppercase text-white bg-orange-800/40" *ngIf="isEditing(i)" (click)="updateProduct(i, update)" >Actualizar</button>
+</form>
