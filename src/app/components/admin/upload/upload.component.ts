@@ -50,6 +50,11 @@ export class UploadComponent {
     });
   }
 
+  imageNN(){
+    console.log();
+    
+  }
+
   async onFormSubmit(form: NgForm){
     const imageNames: string[] = [];
     for (const file of this.selectedFiles) {
@@ -68,6 +73,8 @@ export class UploadComponent {
     await setTimeout(() => {
       form.resetForm()
       imageNames.length = 0
+      console.log(imageNames);
+      
     }, 500);
     
     await this.productService.addProduct(new Product(form.value.name, form.value.description, form.value.price, form.value.avalaible, form.value.category, imageNames[0], imageNames[1], imageNames[2]))
