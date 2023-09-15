@@ -67,9 +67,11 @@ export class UploadComponent {
     await this.ngOnInit()    
     await setTimeout(() => {
       form.resetForm()
+      imageNames.length = 0
     }, 500);
     
-    return this.productService.addProduct(new Product(form.value.name, form.value.description, form.value.price, form.value.avalaible, form.value.category, imageNames[0], imageNames[1], imageNames[2]))
+    await this.productService.addProduct(new Product(form.value.name, form.value.description, form.value.price, form.value.avalaible, form.value.category, imageNames[0], imageNames[1], imageNames[2]))
+
   }
 
 }
