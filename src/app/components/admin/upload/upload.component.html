@@ -16,27 +16,19 @@
 		
 		<div class="flex mx-auto justify-between mt-1 w-5/6">
 			<p class=" cursor-default">Categoria</p>
-			<a href="#" class="text-[8px] font-semibold h-8 border mb-1 border-orange-500 bg-orange-300 hover:bg-orange-500 hover:text-white hover:border-orange-50 p-1 rounded uppercase"><fa-icon [icon]="faAdd" class="mr-1 text-sm"></fa-icon>Categoria</a>
-			<div class="hidden"> <!--TO-DO ADD CATEGORY--> </div>
+			<a (click)="newCategory = true" *ngIf="!newCategory" class="text-[8px] font-semibold h-8 border mb-1 border-orange-500 bg-orange-300 hover:bg-orange-500 hover:text-white hover:border-orange-50 p-1 rounded cursor-pointer uppercase"><fa-icon [icon]="faAdd" class="mr-1 text-sm"></fa-icon>Categoria</a>
+			<a (click)="newCategory = false" *ngIf="newCategory" class="text-[8px] font-semibold h-8 border mb-1 border-orange-500 bg-orange-300 hover:bg-orange-500 hover:text-white hover:border-orange-50 p-1 rounded cursor-pointer uppercase"><fa-icon [icon]="faAdd" class="mr-1 text-sm relative rotate-45" ></fa-icon>Cancelar</a>
 		</div>
-		<div class="select-box relative w-full mb-2 flex flex-col justify-center items-center">
+		<input *ngIf="newCategory" class="w-5/6 mx-auto rounded-md px-2 h-8 flex" type="text" ngModel name="category" id="" autofocus="true" aut>
+		<div *ngIf="!newCategory" class="select-box relative w-full mb-2 flex flex-col justify-center items-center">
 			<div (click)="openOptions()" id="select" class="contentSelect w-5/6 h-8 leading-8 capitalize bg-white hover:border hover:border-orange-600 box-border cursor-pointer rounded px-2">
 				{{ selectedValue }} <p *ngIf="!selectedValue">Selecciona una Categoria</p>
 			</div>
 			<div class="absolute cursor-pointer right-10" (click)="openOptions()">
 				<fa-icon [icon]="faAngleDown"></fa-icon>
 			</div>
-			<div id="options"  class="w-5/6 absolute h-32 overflow-y-scroll z-10 translate-y-20 rounded-b-md hidden">
-				<div class="option pl-2 w-full h-8 flex items-center cursor-pointer relative bg-orange-50 border-b border-orange-400 mx-auto hover:bg-orange-500 hover:text-white" (click)="handleAnchorClick('pollo asado')">Pollo Asado</div>
-				<div class="option pl-2 w-full h-8 flex items-center cursor-pointer relative bg-orange-50 border-b border-orange-400 mx-auto hover:bg-orange-500 hover:text-white" (click)="handleAnchorClick('pollo broaster')">Pollo Broaster</div>
-				<div class="option pl-2 w-full h-8 flex items-center cursor-pointer relative bg-orange-50 border-b border-orange-400 mx-auto hover:bg-orange-500 hover:text-white" (click)="handleAnchorClick('pollo frito')">Pollo Frito</div>
-				<div class="option pl-2 w-full h-8 flex items-center cursor-pointer relative bg-orange-50 border-b border-orange-400 mx-auto hover:bg-orange-500 hover:text-white" (click)="handleAnchorClick('carnes')">Carnes</div>
-				<div class="option pl-2 w-full h-8 flex items-center cursor-pointer relative bg-orange-50 border-b border-orange-400 mx-auto hover:bg-orange-500 hover:text-white" (click)="handleAnchorClick('pescados')">Pescados</div>
-				<div class="option pl-2 w-full h-8 flex items-center cursor-pointer relative bg-orange-50 border-b border-orange-400 mx-auto hover:bg-orange-500 hover:text-white" (click)="handleAnchorClick('bandejas')">Bandejas</div>
-				<div class="option pl-2 w-full h-8 flex items-center cursor-pointer relative bg-orange-50 border-b border-orange-400 mx-auto hover:bg-orange-500 hover:text-white" (click)="handleAnchorClick('arroces')">Arroces</div>
-				<div class="option pl-2 w-full h-8 flex items-center cursor-pointer relative bg-orange-50 border-b border-orange-400 mx-auto hover:bg-orange-500 hover:text-white" (click)="handleAnchorClick('sopas')">Sopas</div>
-				<div class="option pl-2 w-full h-8 flex items-center cursor-pointer relative bg-orange-50 border-b border-orange-400 mx-auto hover:bg-orange-500 hover:text-white" (click)="handleAnchorClick('bebidas')">Bebidas</div>
-				<div class="option pl-2 w-full h-8 flex items-center cursor-pointer relative bg-orange-50 border-b border-orange-400 mx-auto hover:bg-orange-500 hover:text-white" (click)="handleAnchorClick('porciones')">Porciones</div>
+			<div id="options" class="w-5/6 absolute h-auto overflow-y-scroll z-10 top-8 rounded-b-md hidden">
+				<div class="option pl-2 w-full h-8 flex items-center cursor-pointer relative bg-orange-50 border-b border-orange-400 mx-auto hover:bg-orange-500 hover:text-white" (click)="handleAnchorClick('pollo asado')" *ngFor="let category of categories">{{ category }}</div>
 			</div>
 		</div>
 		<div class="w-full mb-2 flex flex-col justify-center items-center">
@@ -63,7 +55,7 @@
 				<input class="h-8 w-full" type="file" ngModel name="imageLg" (change)="onFileSelected($event)">
 			</div>
 		</div>
-		<input id="category" type="hidden" [(ngModel)]="selectedValue" name="category" value="{{selectedValue}}">
+		<input *ngIf="!newCategory" id="category" type="hidden" [(ngModel)]="selectedValue" name="category" value="{{selectedValue}}">
 		<div class="w-full mb-2 flex flex-col justify-center items-center">
 			<button class="w-5/6 h-9 rounded uppercase bg-blue-100/80 text-blue-600 hover:bg-blue-600 hover:text-blue-100 font-extrabold border border-orange-50">Agregar producto</button>
 		</div>

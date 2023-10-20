@@ -13,26 +13,95 @@ export class ProductsService {
   product: Product[] = []
   constructor() { }
 
-  async getAllProducts(): Promise<Product[]> {
-    let { data: products, error } = await this.supabase
+  async getAllAvalaibleProducts(category: string): Promise<Product[]> {
+    let { data: _products, error } = await this.supabase
       .from('Products')
-      .select('*');
+      .select('*').eq('avalaible', true).eq('Category', category)
 
     if (error) {
       console.error('Error fetching products:', error);
       return [];
     }
 
-    if (products) {
-      for (const product of products) {
-        product.imageSm = await this.getImageUrl(product.imageSm);
-        product.imageMd = await this.getImageUrl(product.imageMd);
-        product.imageLg = await this.getImageUrl(product.imageLg);
-      }
+    const imageFetchPromises = _products!.map(async (product) => {
+      product.imageSm = await this.getImageUrl(product.imageSm);
+      product.imageMd = await this.getImageUrl(product.imageMd);
+      product.imageLg = await this.getImageUrl(product.imageLg);
+      return product;
+    });
+  
+    const products = await Promise.all(imageFetchPromises);
+  
+    return products;
+
+  }
+
+  async getAllProducts(): Promise<Product[]> {
+    // const Products = await this.supabase.channel('custom-all-channel')
+    // .on(
+    //   'postgres_changes',
+    //   { event: '*', schema: 'public', table: 'Products' },
+    //   (payload) => {
+    //     console.log('Change received!', payload)
+    //   }
+    // )
+    // .subscribe((update) => {
+    //   console.log('UPDATE', update);
+    // })
+    
+    let { data: _products, error } = await this.supabase
+      .from('Products')
+      .select('*')
+
+    if (error) {
+      console.error('Error fetching products:', error);
+      return [];
     }
 
-    return products as Product[];
+    const imageFetchPromises = _products!.map(async (product) => {
+      product.imageSm = await this.getImageUrl(product.imageSm);
+      product.imageMd = await this.getImageUrl(product.imageMd);
+      product.imageLg = await this.getImageUrl(product.imageLg);
+      return product;
+    });
+  
+    const products = await Promise.all(imageFetchPromises);
+  
+    return products;
+
   }
+
+  
+  categories: string[] = []
+  servings: string[] = []
+
+  async getServings(){
+    this.servings = []
+    let { data, error } = await this.supabase
+    .from('Products')
+    .select('name').eq('Category', 'porciones')
+    if (data) {
+      this.servings = data.map(item => item.name);
+    }
+  }
+  async getAllCategories() {
+    this.categories = []
+    let { data, error } = await this.supabase
+      .from('Products')
+      .select('Category')
+      if (data) {
+        const uniqueCategories = [...new Set(data.map((item: any) => item.Category))];
+        this.categories = uniqueCategories;        
+      }
+      
+    if (error) {
+      console.error('Error fetching categories:', error);
+      return;
+    }
+  
+  }
+  
+  
 
   async getImageUrl(imageName: string): Promise<string> {
     const { data, error } = await this.supabase
@@ -69,20 +138,6 @@ export class ProductsService {
     return 
   }
   
-  async getUrl(imageName: string): Promise<string | null> {
-    const { data, error } = await this.supabase
-      .storage
-      .from('product_img')
-      .createSignedUrl(`public/${imageName}`, 60);
-  
-    if (error) {
-      console.error('Problem getting the URL:', error);
-      return null;
-    } else {
-      console.log('URL created successfully!');
-      return data?.signedUrl ?? null;
-    }
-  }
 
   async addProduct(product: Product){
     this.product.push(product);

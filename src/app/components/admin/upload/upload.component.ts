@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { Form, NgForm } from '@angular/forms';
 import { Product } from 'src/app/models/products/products.model';
 import { ProductsService } from 'src/app/services/products.service';
@@ -13,6 +13,7 @@ import { ManageProductsComponent } from '../manage-products/manage-products.comp
 export class UploadComponent {
   selectedValue: string = '';
   inputValue: string = ''
+  newCategory: boolean = false
 
   handleAnchorClick(value: string) {
     this.selectedValue = value;
@@ -33,16 +34,21 @@ export class UploadComponent {
   faAngleDown = faAngleDown
 
   products?: Product[]
-  
+  categories: string[] = []
   selectedFiles: File[] = [];
 
-  constructor(private productService: ProductsService){}
+  constructor(private productService: ProductsService, private cd:ChangeDetectorRef){}
 
   onFileSelected(event: any) {
     this.selectedFiles.push(event.target.files[0]);
   }
 
   ngOnInit() {
+    this.productService.getAllCategories().then(() => {
+      this.categories = this.productService.categories
+      console.log(this.categories);
+      
+    })
     this.productService.getAllProducts().then(products => {
       this.products = products;            
     }).catch(error => {
@@ -73,7 +79,7 @@ export class UploadComponent {
     await setTimeout(() => {
       form.resetForm()
       imageNames.length = 0
-      console.log(imageNames);
+      this.cd.detectChanges()
       
     }, 500);
     

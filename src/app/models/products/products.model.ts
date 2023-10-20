@@ -7,6 +7,8 @@ export class Product {
         public Category: string,
         public imageSm: string,
         public imageMd: string,
-        public imageLg: string
+        public imageLg: string,
+        public quantity?: number,
+        public comment?: string
     ){}
 }

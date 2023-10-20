@@ -1,34 +1,66 @@
-import { Injectable } from '@angular/core';
-import { CartItem, TotalQuantity } from '../models/cart.model';
-import { Product } from '../models/products/products.model';
+import { Injectable, Input, Output } from '@angular/core';
+import { Cart, CartItem } from '../models/cart.model';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  cartItem = new CartItem
 
-  constructor() { }
-  
-  getProduct(product: Product){
-    this.cartItem.name = product.name
-    this.cartItem.price = product.price
-    this.cartItem.avalaible = product.avalaible
+  cart = new BehaviorSubject<Cart>({items: []});
+
+  addToCart(item: CartItem): void {
+    const items = [...this.cart.value.items];
+
+    const itemInCart = items.find((_item) => _item.name === item.name);
+    
+    if (itemInCart) {
+      itemInCart.quantity += 1;
+    } else {
+      items.push(item);
+    }
+
+    this.cart.next({ items });
+    //this._snackBar.open('1 item added to cart.', 'Ok', { duration: 3000 });
   }
 
-  addQuantity(){
-    if (this.cartItem.quantity) {
-      this.cartItem.quantity ++
-    }
+  getTotal(items: Array<CartItem>): number {
+    return items.
+      map((item) => item.price * item.quantity)
+      .reduce((prev, current) => prev + current, 0);
   }
-  removeCuantity(){
-    if (this.cartItem.quantity) {
-      this.cartItem.quantity -- 
-    }
+
+  clearCart(): void {
+    this.cart.next({items: [] });
+    //this._snackBar.open('Cart is cleared.', 'Ok', { duration: 3000 });
   }
-  deleteProduct(){
-    if (this.cartItem) {
-      this.cartItem.quantity = 0
+
+  removeFromCart(item: CartItem, update = true): Array<CartItem> {
+    const filteredItems = this.cart.value.items.filter((_item) => _item.name !== item.name);
+
+    if (update) {
+      this.cart.next({ items: filteredItems });
+      //this._snackBar.open('1 Item remove from cart.', 'Ok', { duration: 3000})
     }
+    return filteredItems;
   }
+  removeQuantity(item: CartItem):void {
+    let itemForRemoval: CartItem | undefined;
+    let filteredItems = this.cart.value.items.map((_item) => {
+      if(_item.name === item.name) {
+        _item.quantity --;
+        if (_item.quantity === 0) {
+          itemForRemoval = _item;
+        }
+      }
+      return _item;
+    });
+    if (itemForRemoval) {
+      filteredItems = this.removeFromCart(itemForRemoval, false);
+    }
+
+    this.cart.next({ items: filteredItems });
+    //this._snackBar.open('1 Item removed from cart.', 'Ok', { duration: 3000 })
+  }
+
 }

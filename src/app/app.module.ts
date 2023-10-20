@@ -16,6 +16,8 @@ import { SupabaseService } from './services/supabase.service';
 import { ManageProductsComponent } from './components/admin/manage-products/manage-products.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CartComponent } from './components/cart/cart.component';
+import { HttpClientModule } from '@angular/common/http';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,10 @@ import { CartComponent } from './components/cart/cart.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    HttpClientModule,
+    SweetAlert2Module.forRoot(),
+    SweetAlert2Module
   ],
   providers: [
     ProductsService,
