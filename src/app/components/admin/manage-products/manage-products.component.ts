@@ -76,12 +76,14 @@ export class ManageProductsComponent {
     this.ngOnInit()
   }
 
-  async updateProduct(index: number, form: NgForm){
+  async updateProduct(index: number,id: number, form: NgForm){
+    console.log(form.value.avalaible, 'from component');
+    
     const imageNames: string[] = [];
     this.selectedFiles.push(form.value.imageSm, form.value.imageMd, form.value.imageLg)
     for (const file of this.selectedFiles) {
       if (file) {
-        await this.productsService.addImage(file.name, file)
+        await this.productsService.changeImage(file.name, file)
         const imageName = file.name
         if (imageNames) {
           imageNames.push(imageName)
@@ -90,18 +92,8 @@ export class ManageProductsComponent {
         }
       }
     }
-    console.log(form)
     this.isEditing(index)
-    await this.productsService.updateProduct(form.value.name, new Product(form.value.name, form.value.description, form.value.price, form.value.avalaible, form.value.category, imageNames[0], imageNames[1], imageNames[2]))
+    await this.productsService.updateProduct(id, new Product(form.value.name, form.value.description, form.value.price, form.value.avalaible, form.value.category, imageNames[0], imageNames[1], imageNames[2]))
     this.ngOnInit()
-  }
-
-  async updateProductAvalaibility(name: string, newValue: boolean){    
-    let isAvalaible: boolean = false;
-    if (isAvalaible !== newValue) {
-      isAvalaible = true
-    }else{
-      isAvalaible = false
-    }
   }
 }

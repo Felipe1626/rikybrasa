@@ -9,6 +9,7 @@ export class Product {
         public imageMd: string,
         public imageLg: string,
         public quantity?: number,
-        public comment?: string
+        public comment?: string,
+        public id?: number
     ){}
 }

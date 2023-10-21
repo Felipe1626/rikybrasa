@@ -161,11 +161,11 @@ export class ProductsService {
     }
   }
 
-  async updateProduct(name: string, updateProduct: Product){
+  async updateProduct(id: number, updateProduct: Product){
     const { data, error } = await this.supabase
     .from('Products')
-    .update({ name: updateProduct })
-    .eq('name', name)
+    .update( {name: updateProduct.name, description: updateProduct.description, price: updateProduct.price, Category: updateProduct.Category, avalaible: updateProduct.avalaible, imageSm: updateProduct.imageSm, imageMd: updateProduct.imageMd, imageLg: updateProduct.imageLg} )
+    .eq('id', id)
     .select()
     if (error) {
       console.error('here we have an error on updateProduct():', error)

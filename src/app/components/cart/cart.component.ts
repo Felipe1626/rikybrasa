@@ -90,7 +90,7 @@ export class CartComponent implements OnInit {
       const itemMessages = this.cart.items.map(item => {
         return `*Producto:* ${item.name}, *Valor:* ${item.price}, *Cantidad:* ${item.quantity}, *Comentario:* ${item.comment}.`;
       });
-      items = itemMessages.join(' _~|| \\///\\// | \\//\\// ||~_ ');
+      items = itemMessages.join(' _   <=  ||  =>   _ ');
     }
   
     return items;
