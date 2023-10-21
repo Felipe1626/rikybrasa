@@ -28,17 +28,16 @@
 				<fa-icon [icon]="faAngleDown"></fa-icon>
 			</div>
 			<div id="options" class="w-5/6 absolute h-auto overflow-y-scroll z-10 top-8 rounded-b-md hidden">
-				<div class="option pl-2 w-full h-8 flex items-center cursor-pointer relative bg-orange-50 border-b border-orange-400 mx-auto hover:bg-orange-500 hover:text-white" (click)="handleAnchorClick('pollo asado')" *ngFor="let category of categories">{{ category }}</div>
+				<div class="option pl-2 w-full h-8 flex items-center cursor-pointer relative bg-orange-50 border-b border-orange-400 mx-auto hover:bg-orange-500 hover:text-white" (click)="handleAnchorClick(category)" *ngFor="let category of categories">{{ category }}</div>
 			</div>
 		</div>
-		<div class="w-full mb-2 flex flex-col justify-center items-center">
-			<p class="w-5/6  cursor-default">Esta disponible</p>
-			<div class="flex">
-				<p class="mr-1 cursor-default">Si</p>
-				<input class="w-8 cursor-pointer" type="radio" ngModel name="avalaible" value="true" id="avalaibleYes">
-				<p class="ml-4 mr-1 cursor-default">No</p>
-				<input class="w-8 cursor-pointer" type="radio" ngModel name="avalaible" value="false" id="avalaibleNo">
-			</div>
+		<div class="w-5/6 mx-auto mb-2 flex justify-start items-center">
+			<p class="cursor-default">Destacar</p>
+				<label class="relative inline-flex cursor-pointer items-center mt-3 ml-3">
+					<input id="switch" type="checkbox" name="highlighted" [(ngModel)]="isChecked" class="peer sr-only" />
+					<label for="switch" class="hidden"></label>
+					<div class="peer text-sm font-semibold h-10 w-[4.90rem] rounded-full border bg-zinc-400 after:absolute after:left-[2px] after:top-0.5 after:h-9 after:w-[2.30rem] after:rounded-full after:px-2 peer-checked:after:px-3 after:py-[0.37rem] after:border after:border-gray-300 after:bg-white after:transition-all after:content-['No'] peer-checked:after:content-['Si'] peer-checked:bg-orange-400 peer-checked:after:translate-x-full peer-checked:after:border-white"></div>
+				</label>
 		</div>
 		<div class="w-full mb-2 flex flex-col justify-center items-center">
 			<p class="w-5/6 cursor-default">Foto del Producto</p>
@@ -57,7 +56,8 @@
 		</div>
 		<input *ngIf="!newCategory" id="category" type="hidden" [(ngModel)]="selectedValue" name="category" value="{{selectedValue}}">
 		<div class="w-full mb-2 flex flex-col justify-center items-center">
-			<button class="w-5/6 h-9 rounded uppercase bg-blue-100/80 text-blue-600 hover:bg-blue-600 hover:text-blue-100 font-extrabold border border-orange-50">Agregar producto</button>
+			<swal #addedToCart title="{{ form.name }} añadido con exito." [swalOptions]="{ toast: true, position: 'top-end', showConfirmButton: false, timer: 3000, timerProgressBar: true }" icon="success"></swal>
+			<button class="w-5/6 h-9 rounded uppercase bg-blue-100/80 text-blue-600 hover:bg-blue-600 hover:text-blue-100 font-extrabold border border-orange-50" [swal]="addedToCart">Agregar producto</button>
 		</div>
   </div>
 </form>

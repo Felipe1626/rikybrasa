@@ -11,9 +11,17 @@ import { ManageProductsComponent } from '../manage-products/manage-products.comp
   styleUrls: ['./upload.component.scss']
 })
 export class UploadComponent {
+  faAdd = faAdd
+  faAngleDown = faAngleDown
+  
   selectedValue: string = '';
   inputValue: string = ''
   newCategory: boolean = false
+  isChecked: boolean = false
+  products?: Product[]
+  categories: string[] = []
+  selectedFiles: File[] = [];
+
 
   handleAnchorClick(value: string) {
     this.selectedValue = value;
@@ -30,13 +38,6 @@ export class UploadComponent {
     }   
   }
 
-  faAdd = faAdd
-  faAngleDown = faAngleDown
-
-  products?: Product[]
-  categories: string[] = []
-  selectedFiles: File[] = [];
-
   constructor(private productService: ProductsService, private cd:ChangeDetectorRef){}
 
   onFileSelected(event: any) {
@@ -45,9 +46,7 @@ export class UploadComponent {
 
   ngOnInit() {
     this.productService.getAllCategories().then(() => {
-      this.categories = this.productService.categories
-      console.log(this.categories);
-      
+      this.categories = this.productService.categories      
     })
     this.productService.getAllProducts().then(products => {
       this.products = products;            
@@ -75,15 +74,16 @@ export class UploadComponent {
       }
     }
     
-    await this.ngOnInit()    
-    await setTimeout(() => {
+    await this.productService.addProduct(new Product(form.value.name, form.value.description, form.value.price, this.isChecked, form.value.category, imageNames[0], imageNames[1], imageNames[2]))
+    
+    this.ngOnInit()    
+    setTimeout(() => {
       form.resetForm()
       imageNames.length = 0
       this.cd.detectChanges()
       
     }, 500);
     
-    await this.productService.addProduct(new Product(form.value.name, form.value.description, form.value.price, form.value.avalaible, form.value.category, imageNames[0], imageNames[1], imageNames[2]))
 
   }
 

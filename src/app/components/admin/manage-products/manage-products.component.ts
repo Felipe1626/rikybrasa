@@ -17,9 +17,13 @@ export class ManageProductsComponent {
   faAdd = faAdd
   faAngleDown = faAngleDown
 
+  load: boolean = false
   selectedValue: string = '';
   inputValue: string = ''
   editingIndices: number[] = []
+  categories: string[] = []
+  selectedFiles: File[] = [];
+
   
   constructor(private productsService: ProductsService){ }
 
@@ -54,25 +58,50 @@ export class ManageProductsComponent {
   }
 
   ngOnInit() {
+    this.load = true
     this.productsService.getAllProducts().then(products => {
-      this.products = products;
-      console.log('product load');       
+      this.products = products
+      this.load = false
     }).catch(error => {
       console.error('Error fetching products:', error);
     });
+    this.productsService.getAllCategories().then(() => {
+      this.categories = this.productsService.categories
+    });
+
   }
 
-  deleteProduct(name:string){  
-    this.productsService.deleteProduct(name)
-    console.log('Product Deleted.')
-    setTimeout(() => {
-      this.ngOnInit()
-    }, 100);
+  async deleteProduct(name:string){  
+    await this.productsService.deleteProduct(name)
+    this.ngOnInit()
   }
 
   async updateProduct(index: number, form: NgForm){
+    const imageNames: string[] = [];
+    this.selectedFiles.push(form.value.imageSm, form.value.imageMd, form.value.imageLg)
+    for (const file of this.selectedFiles) {
+      if (file) {
+        await this.productsService.addImage(file.name, file)
+        const imageName = file.name
+        if (imageNames) {
+          imageNames.push(imageName)
+        } else {
+          console.error(`Error uploading an image:`, file)
+        }
+      }
+    }
     console.log(form)
     this.isEditing(index)
-    await this.ngOnInit()
+    await this.productsService.updateProduct(form.value.name, new Product(form.value.name, form.value.description, form.value.price, form.value.avalaible, form.value.category, imageNames[0], imageNames[1], imageNames[2]))
+    this.ngOnInit()
+  }
+
+  async updateProductAvalaibility(name: string, newValue: boolean){    
+    let isAvalaible: boolean = false;
+    if (isAvalaible !== newValue) {
+      isAvalaible = true
+    }else{
+      isAvalaible = false
+    }
   }
 }

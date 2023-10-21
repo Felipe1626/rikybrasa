@@ -37,18 +37,6 @@ export class ProductsService {
   }
 
   async getAllProducts(): Promise<Product[]> {
-    // const Products = await this.supabase.channel('custom-all-channel')
-    // .on(
-    //   'postgres_changes',
-    //   { event: '*', schema: 'public', table: 'Products' },
-    //   (payload) => {
-    //     console.log('Change received!', payload)
-    //   }
-    // )
-    // .subscribe((update) => {
-    //   console.log('UPDATE', update);
-    // })
-    
     let { data: _products, error } = await this.supabase
       .from('Products')
       .select('*')
@@ -137,6 +125,27 @@ export class ProductsService {
   
     return 
   }
+
+  async changeImage(name: string, data: Blob | null): Promise<string | undefined> {
+    if (!data) {
+      return undefined;
+    }
+  
+    const { data: response, error } = await this.supabase
+      .storage
+      .from('product_img')
+      .update(`public/${name}`, data, {
+        cacheControl: '3600',
+        upsert: false,
+      })
+  
+    if (error) {
+      console.error('Error uploading an image:', error);
+      return undefined;
+    }
+  
+    return 
+  }
   
 
   async addProduct(product: Product){
@@ -163,6 +172,103 @@ export class ProductsService {
     }else{
       console.log('Productd updated');
 
+    }
+  }
+
+  async updateProductName(name: string, value: string){
+    const { data, error } = await this.supabase
+    .from('Products')
+    .update({'name': value})
+    .eq('name', name)
+    if (error) {
+      console.error('here we have an error on updateProductName():', error)
+    }else{
+      console.log('Product updated');
+    }
+  }
+
+    async updateProductDescription(name: string, value: string){
+    const { data, error } = await this.supabase
+    .from('Products')
+    .update({'description': value})
+    .eq('name', name)
+    if (error) {
+      console.error('here we have an error on updateProductDescription():', error)
+    }else{
+      console.log('Product updated');
+    }
+  }
+
+  async updateProductPrice(name: string, value: number){
+    const { data, error } = await this.supabase
+    .from('Products')
+    .update({'price': value})
+    .eq('name', name)
+    if (error) {
+      console.error('here we have an error on updateProductPrice():', error)
+    }else{
+      console.log('Product updated');
+    }
+  }
+
+
+  async updateProductCategory(name: string, value: string){
+    const { data, error } = await this.supabase
+    .from('Products')
+    .update({'Category': value})
+    .eq('name', name)
+    if (error) {
+      console.error('here we have an error on updateProductCategory():', error)
+    }else{
+      console.log('Product updated');
+    }
+  }
+
+  async updateProductAvalaibility(name: string, value: boolean){
+    const { data, error } = await this.supabase
+    .from('Products')
+    .update({'avalaible': value})
+    .eq('name', name)
+    if (error) {
+      console.error('here we have an error on updateProductAvalaibility():', error)
+    }else{
+      console.log('Product updated');
+    }
+  }
+
+  async updateProductSmallImg(name: string, value: string){
+    const { data, error } = await this.supabase
+    .from('Products')
+    .update({'imageSm': value})
+    .eq('name', name)
+    if (error) {
+      console.error('here we have an error on updateProductAvalaibility():', error)
+    }else{
+      console.log('Product updated');
+    }
+  }
+
+  async updateProductBaseImg(name: string, value: string){
+    const { data, error } = await this.supabase
+    .from('Products')
+    .update({'imageMd': value})
+    .eq('name', name)
+    if (error) {
+      console.error('here we have an error on updateProductBaseImg():', error)
+    }else{
+      console.log('Product updated');
+    }
+  }
+
+  async updateProductBigImg(name: string, value: boolean){
+    const { data, error } = await this.supabase
+    .from('Products')
+    .update({'imageLg': value})
+    .eq('name', name)
+    if (error) {
+      console.error('here we have an error on updateProductBigImg():', error)
+    }else{
+      console.log('Product updated');
     }
   }
 

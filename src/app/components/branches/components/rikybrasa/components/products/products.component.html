@@ -41,7 +41,7 @@
                     </button>
                 </div>
                 <!-- Select Options -->
-                <div id="businessOptions" class="absolute z-40 rounded-b-md bg-orange-50 w-full h-auto hidden">
+                <div id="businessOptions" class="absolute z-40 rounded-md bg-orange-50 w-full h-auto hidden">
                     <ul class="w-full h-full rounded-b-md">
                         <li class="w-full h-8 cursor-pointer flex items-center pl-3 hover:bg-orange-600 hover:text-white capitalize text-xs" (click)="handleStatusAnchorClick('Adicionales')" >Adicionales</li>
                         <li class="w-full h-8 cursor-pointer flex items-center pl-3 hover:bg-orange-600 hover:text-white capitalize text-xs" (click)="handleStatusAnchorClick(serving)" *ngFor="let serving of servings">{{ serving }}</li>

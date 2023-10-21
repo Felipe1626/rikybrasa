@@ -1,7 +1,7 @@
 <form #update="ngForm" *ngFor="let product of products; let i = index" class="p-3 mb-5 bg-orange-300/70 ">
 	<!--Name-->
 	<div>
-		<div>Nombre</div>
+		<p class="font-bold text-xl text-white uppercase">Nombre</p>
 		<div>
 			<div *ngIf="!isEditing(i)" class="flexcapitalize">
 				<p>{{ product.name }}</p>
@@ -13,7 +13,7 @@
 	</div>
 	<!--Description-->
 	<div>
-		<div>Descripcion</div>
+		<p class="font-bold text-xl text-white uppercase">Descripcion</p>
 		<div>
 			<div *ngIf="!isEditing(i)">
 				<p>{{ product.description }}</p>
@@ -25,7 +25,7 @@
 	</div>
 	<!-- Price -->
 	<div>
-		<div>Precio</div>
+		<p class="font-bold text-xl text-white uppercase">Precio</p>
 		<div>
 			<div *ngIf="!isEditing(i)">
 				<p>{{ product.price | currency }}</p>
@@ -35,9 +35,44 @@
 			</div>
 		</div>
 	</div>
+	<!-- Category -->
+	<div>
+		<p class="font-bold text-xl text-white uppercase">Categoria</p>
+		<div>
+			<div *ngIf="!isEditing(i)">
+				<p>{{ product.Category }}</p>
+			</div>
+			<div *ngIf="isEditing(i)">
+				<input id="category" type="hidden" [(ngModel)]="product.Category" name="category" value="{{selectedValue}}">
+				<div class="select-box relative w-full mb-2 flex flex-col justify-center items-center">
+					<div (click)="openOption(i)" id="select" class="contentSelect w-5/6 h-8 leading-8 capitalize bg-white hover:border hover:border-orange-600 box-border cursor-pointer rounded px-2">
+						{{ selectedValue }} <p *ngIf="!selectedValue">{{ product.Category }}</p>
+					</div>
+					<div class="absolute cursor-pointer right-10" (click)="openOption(i)">
+						<fa-icon [icon]="faAngleDown"></fa-icon>
+					</div>
+					<div id="options"  class="w-5/6 absolute h-32 overflow-y-scroll z-10 translate-y-20 rounded-b-md hidden">
+						<div class="option pl-2 w-full h-8 flex items-center cursor-pointer relative bg-orange-50 border-b border-orange-400 mx-auto hover:bg-orange-500 hover:text-white" (click)="handleAClick('{{ category }}', i)" *ngFor="let category of categories">{{ category }}</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Avalaible -->
+	<div>
+		<p class="font-bold text-xl text-white uppercase">Disponible</p>
+		<div>
+			<label class="relative inline-flex cursor-pointer items-center">
+        <input id="switch" type="checkbox" name="highlighted" [(ngModel)]="product.avalaible" class="peer sr-only" (change)="updateProductAvalaibility(product.name!, product.avalaible)"/>
+        <label for="switch" class="hidden"></label>
+        <div class="peer text-sm font-semibold h-10 w-[4.90rem] rounded-full border bg-zinc-400 after:absolute after:left-[2px] after:top-0.5 after:h-9 after:w-[2.30rem] after:rounded-full after:px-2 peer-checked:after:px-3 after:py-[0.37rem] after:border after:border-gray-300 after:bg-white after:transition-all after:content-['No'] peer-checked:after:content-['Si'] peer-checked:bg-orange-400 peer-checked:after:translate-x-full peer-checked:after:border-white"></div>
+      </label>
+		</div>
+	</div>
+
 	<!-- Image -->
 	<div>
-		<div>Imagenes</div>
+		<p class="font-bold text-xl text-white uppercase">Imagenes</p>
 		<div>
 			<div *ngIf="!isEditing(i)">
 				<img src="{{ product.imageSm }}" alt="Imagen Icon">
@@ -60,57 +95,15 @@
 			</div>
 		</div>
 	</div>
-	<!-- Category -->
-	<div>
-		<div>Categoria</div>
-		<div>
-			<div *ngIf="!isEditing(i)">
-				<p>{{ product.Category }}</p>
-			</div>
-			<div *ngIf="isEditing(i)">
-				<input id="category" type="hidden" [(ngModel)]="product.Category" name="category" value="{{selectedValue}}">
-				<div class="select-box relative w-full mb-2 flex flex-col justify-center items-center">
-					<div (click)="openOption(i)" id="select" class="contentSelect w-5/6 h-8 leading-8 capitalize bg-white hover:border hover:border-orange-600 box-border cursor-pointer rounded px-2">
-						{{ selectedValue }} <p *ngIf="!selectedValue">Selecciona una Categoria</p>
-					</div>
-					<div class="absolute cursor-pointer right-10" (click)="openOption(i)">
-						<fa-icon [icon]="faAngleDown"></fa-icon>
-					</div>
-					<div id="options"  class="w-5/6 absolute h-32 overflow-y-scroll z-10 translate-y-20 rounded-b-md hidden">
-						<div class="option pl-2 w-full h-8 flex items-center cursor-pointer relative bg-orange-50 border-b border-orange-400 mx-auto hover:bg-orange-500 hover:text-white" (click)="handleAClick('pollo asado', i)">Pollo Asado</div>
-						<div class="option pl-2 w-full h-8 flex items-center cursor-pointer relative bg-orange-50 border-b border-orange-400 mx-auto hover:bg-orange-500 hover:text-white" (click)="handleAClick('pollo broaster', i)">Pollo Broaster</div>
-						<div class="option pl-2 w-full h-8 flex items-center cursor-pointer relative bg-orange-50 border-b border-orange-400 mx-auto hover:bg-orange-500 hover:text-white" (click)="handleAClick('pollo frito', i)">Pollo Frito</div>
-						<div class="option pl-2 w-full h-8 flex items-center cursor-pointer relative bg-orange-50 border-b border-orange-400 mx-auto hover:bg-orange-500 hover:text-white" (click)="handleAClick('carnes', i)">Carnes</div>
-						<div class="option pl-2 w-full h-8 flex items-center cursor-pointer relative bg-orange-50 border-b border-orange-400 mx-auto hover:bg-orange-500 hover:text-white" (click)="handleAClick('pescados', i)">Pescados</div>
-						<div class="option pl-2 w-full h-8 flex items-center cursor-pointer relative bg-orange-50 border-b border-orange-400 mx-auto hover:bg-orange-500 hover:text-white" (click)="handleAClick('bandejas', i)">Bandejas</div>
-						<div class="option pl-2 w-full h-8 flex items-center cursor-pointer relative bg-orange-50 border-b border-orange-400 mx-auto hover:bg-orange-500 hover:text-white" (click)="handleAClick('arroces', i)">Arroces</div>
-						<div class="option pl-2 w-full h-8 flex items-center cursor-pointer relative bg-orange-50 border-b border-orange-400 mx-auto hover:bg-orange-500 hover:text-white" (click)="handleAClick('sopas', i)">Sopas</div>
-						<div class="option pl-2 w-full h-8 flex items-center cursor-pointer relative bg-orange-50 border-b border-orange-400 mx-auto hover:bg-orange-500 hover:text-white" (click)="handleAClick('bebidas', i)">Bebidas</div>
-						<div class="option pl-2 w-full h-8 flex items-center cursor-pointer relative bg-orange-50 border-b border-orange-400 mx-auto hover:bg-orange-500 hover:text-white" (click)="handleAClick('porciones', i)">Porciones</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Avalaible -->
-	<div>
-		<div>Disponible</div>
-		<div>
-			<div *ngIf="!isEditing(i)">
-				<p>{{ product.avalaible }}</p>
-			</div>
-			<div *ngIf="isEditing(i)">
-				<p class="mr-1 cursor-default">Si</p>
-				<input class="w-8 cursor-pointer" type="radio" [(ngModel)]="product.avalaible" name="avalaible" value="true" id="avalaibleYes">
-				<p class="ml-4 mr-1 cursor-default">No</p>
-				<input class="w-8 cursor-pointer" type="radio" [(ngModel)]="product.avalaible" name="avalaible" value="false" id="avalaibleNo">
-			</div>
-		</div>
-	</div>
-
-	<button class="hover:border w-8 hover:bg-orange-600/50 hover:border-orange-500 rounded-full" *ngIf="!isEditing(i)" (click)="toggleEdit(i)"><fa-icon [icon]="faPancil"></fa-icon></button>
-	<button class="hover:border w-8 hover:bg-orange-600/50 hover:border-orange-500 rounded-full" *ngIf="!isEditing(i)" (click)="deleteProduct(this.product.name)"><fa-icon [icon]="faTrash"></fa-icon></button>
-	
-	<button class="w-[12ch] p-1 rounded text-sm border border-orange-900 uppercase text-white bg-orange-800/40" *ngIf="isEditing(i)" (click)="toggleEdit(i)">Cancelar</button>
-	<button class="w-[12ch] p-1 rounded text-sm border border-orange-900 uppercase text-white bg-orange-800/40" *ngIf="isEditing(i)" (click)="updateProduct(i, update)" >Actualizar</button>
+	<button class="border w-2/6 h-12 text-center bg-orange-300 border-orange-950 hover:bg-orange-600/50 hover:border-orange-500 rounded-full mt-5 mr-20" *ngIf="!isEditing(i)" (click)="toggleEdit(i)"><fa-icon [icon]="faPancil"></fa-icon></button>
+	<button class="border w-2/6 h-12 text-center bg-orange-300 border-orange-950 hover:bg-orange-600/50 hover:border-orange-500 rounded-full" *ngIf="!isEditing(i)" [swal]="deletePop"><fa-icon [icon]="faTrash"></fa-icon></button>
+	<swal #updatePop title="¿Actualizar Producto?" text="¿Quieres Actualizar {{product.name}}?" (confirm)="updateProduct(i, update); updated.fire" confirmButtonText="Actualizar" [swalOptions]="{ toast: false, showConfirmButton: true, showCancelButton: true, cancelButtonColor: 'red', confirmButtonColor: 'orange', timer: 6000, timerProgressBar: true }" icon="question"></swal>
+	<swal #deletePop title="¿Eliminar Producto?" text="¿Quieres Eliminar {{product.name}}?" (confirm)="deleteProduct(this.product.name); deleted.fire" confirmButtonText="Eliminar Producto" [swalOptions]="{ toast: false, showConfirmButton: true, showCancelButton: true, cancelButtonColor: 'red', confirmButtonColor: 'orange', timer: 6000, timerProgressBar: true }" icon="warning"></swal>
+	<swal #deleted title="{{ product.name }} Eliminado con exito" [swalOptions]="{ toast: true, position: 'top-end', showConfirmButton: false, timer: 3000, timerProgressBar: true }" icon="success"></swal>
+	<swal #updated title="{{ product.name }} Actualizado con exito" [swalOptions]="{ toast: true, position: 'top-end', showConfirmButton: false, timer: 3000, timerProgressBar: true }" icon="success"></swal>
+	<button class="w-[12ch] p-1 rounded text-sm border border-orange-900 uppercase text-white bg-orange-800/40 mt-5" *ngIf="isEditing(i)" (click)="toggleEdit(i)">Cancelar</button>
+	<button class="w-[12ch] p-1 rounded text-sm border border-orange-900 uppercase text-white bg-orange-800/40" *ngIf="isEditing(i)" [swal]="updatePop">Actualizar</button>
 </form>
+<div *ngIf="load === true" class="w-full h-[28rem] flex justify-center items-center gap-2">
+	<div class=""><h2 class="animate-pulse font-extrabold text-xl">Cargando productos</h2></div><div class="w-8 h-8 rounded-full bg-gradient-to-r from-black via-slate-500 to-white p-[2px] animate-spin"><div class="w-full h-full bg-orange-500 rounded-full"></div></div>
+</div>  
