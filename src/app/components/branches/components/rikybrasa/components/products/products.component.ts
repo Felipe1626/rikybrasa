@@ -6,7 +6,6 @@ import { faAngleDown, faArrowUp, faCheck, faClose, faShoppingBasket } from '@for
 import { CartService } from 'src/app/services/cart.service';
 import { CartItem, Cart } from 'src/app/models/cart.model';
 import { __values } from 'tslib';
-import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 type products = { [key: string]: Product[] };
 
@@ -19,6 +18,7 @@ type products = { [key: string]: Product[] };
 export class ProductsComponent implements OnInit{
   cart: Cart = { items: []};
   products: products = {}
+  allProducts: number[] = []
   faHandPointer = faHandPointer
   faPenToSquare = faPenToSquare
   faClose = faClose
@@ -31,11 +31,12 @@ export class ProductsComponent implements OnInit{
   comment: boolean = false
   selectedValue: string = 'Adicionales'
   commentValue: string = ''
-  purchaseIndices: string[] = []
   purchaseIndex: number[] = []
   imageIndices: number[] = []
   categories: string[] = []
   servings: string[] = []
+  open: string | null = null
+  openImg: string | null = null
   
   handleStatusAnchorClick(value: string) {
     if (value == 'Adicionales') {
@@ -55,40 +56,15 @@ export class ProductsComponent implements OnInit{
     }
   }
 
-  togglePurchase(index: number) {
-    if (this.purchaseIndex.includes(index)) {
-      this.purchaseIndex = this.purchaseIndex.filter((i) => i !== index);
-    } else {
-      this.purchaseIndex.push(index);
-    }
+  togglePurchase(P: Product) {
+    this.open = P.name
+  }
+
+  closePurchase(){
+    this.open = null
   }
   
-  purchase(index: number, product: Product) {
 
-      let _comment = 'N/A'
-      const items = [...this.cart.items];
-      const itemInCart = items.find((_item) => _item.name === product.name);
-      if(product.comment){
-        _comment = product.comment
-      }
-
-      const cartItem: CartItem = {
-        img: product.imageSm,
-        name: product.name,
-        price: product.price,
-        avalaible: product.avalaible,
-        quantity: product.quantity!,
-        comment: _comment
-      };
-
-    if (!this.purchaseIndex.includes(index)) {
-
-      return false
-    }
-    
-    // this.togglePurchase(index);
-    return true
-  }
 
   async addTCart(index: number, product: Product) {
     let _comment = 'N/A'
@@ -109,17 +85,22 @@ export class ProductsComponent implements OnInit{
         this.cartService.getTotal(this.cart.items)
       }
     }, 3000);
+    this.open = null
   }
 
-  OpenImg(index: number){
-    if (this.imageIndices.includes(index)) {
-      this.imageIndices = this.imageIndices.filter((i) => i !== index);
-    } else {
-      this.imageIndices.push(index);
-    }
+  OpenImg(P: Product){
+    if (this.openImg === P.name) {
+      this.openImg = null
+    }else[
+      this.openImg = P.name
+    ]
   }
-  isOpen(index: number): boolean {
-    return this.imageIndices.includes(index);
+  isOpen(P: Product): boolean {
+    if (this.openImg === P.name) {
+      return true
+    }else{
+      return false
+    }
   }
 
   removeQuantity(index: number, product: Product){
@@ -138,7 +119,7 @@ export class ProductsComponent implements OnInit{
       }      
     }
     if (product.quantity == 0) {
-      this.togglePurchase(index)
+      this.closePurchase()
       product.quantity = 1;
     }
     this.cartService.getTotal(this.cart.items)
